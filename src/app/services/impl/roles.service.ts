@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
-import { IUsersServiceDAO } from '../dao/i.users.service.dao';
-import { User } from 'src/app/models/user.model';
+import { IRolesServiceDAO } from '../dao/i.roles.service.dao';
+import { Role } from "../../models/role.model";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { TokenJWT } from 'src/app/models/tokenjwt.model';
-import { Observable } from 'rxjs';
 import { SessionService } from './session.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UsersService implements IUsersServiceDAO  {
+export class RolesService implements IRolesServiceDAO {
 
   private resourceUrl : string;
   private headers     : HttpHeaders;
@@ -18,30 +18,26 @@ export class UsersService implements IUsersServiceDAO  {
   constructor(private http: HttpClient, private sessionService : SessionService) 
   { 
     var token : TokenJWT = sessionService.getToken();
-    this.resourceUrl = environment.apiUrl + "/users/";
+    this.resourceUrl = environment.apiUrl + "/Roles/";
     this.headers = new HttpHeaders({ 
                                     'Content-Type':  'application/json',
                                     'Authorization': 'Bearer ' + token.value
                                   });
   }
 
-  create(obj: User): Observable<User> {
-    return this.http.post<User>(this.resourceUrl, obj, { headers: this.headers });
+  create(obj: Role): Observable<Role> {
+    return this.http.post<Role>(this.resourceUrl, obj, { headers: this.headers });
   }  
   
-  readById(id: number): Observable<User> {
-    return this.http.get<User>(this.resourceUrl + id, { headers: this.headers });
+  readById(id: number): Observable<Role> {
+    return this.http.get<Role>(this.resourceUrl + id, { headers: this.headers });
   }
 
-  authentication(obj: User): Observable<TokenJWT> {
-    return this.http.post<TokenJWT>(this.resourceUrl + 'auth/', obj);
+  readAll(): Observable<Role[]> {
+    return this.http.get<Role[]>(this.resourceUrl, { headers: this.headers });
   }
 
-  readAll(): Observable<User[]> {
-    return this.http.get<User[]>(this.resourceUrl, { headers: this.headers });
-  }
-
-  update(obj: User): Observable<void> {
+  update(obj: Role): Observable<void> {
     return this.http.put<void>(this.resourceUrl + obj.id, obj, { headers: this.headers });
   }
 

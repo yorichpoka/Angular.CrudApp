@@ -1,0 +1,59 @@
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light rounded border shadow" [hidden]="!isVisible">
+        <a class="navbar-brand" [routerLink]="[ '/auth' ]">
+            <img src="assets/images/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+            Crud App
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+            aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item" routerLinkActive="active">
+                    <a class="nav-link" [routerLink]="[ '/users' ]">
+                        <fa name="users"></fa> Users
+                    </a>
+                </li>
+                <li class="nav-item" routerLinkActive="active">
+                    <a class="nav-link" [routerLink]="[ '/roles' ]">
+                        <fa name="cog"></fa> Roles
+                    </a>
+                </li>
+                <li class="nav-item" routerLinkActive="active">
+                    <a class="nav-link" [routerLink]="[ '/groupMenus' ]">
+                        <fa name="cog"></fa> Groups menu
+                    </a>
+                </li>
+                <li class="nav-item" routerLinkActive="active">
+                    <a class="nav-link" [routerLink]="[ '/menus' ]">
+                        <fa name="clone"></fa> Menus
+                    </a>
+                </li>
+                <li class="nav-item" routerLinkActive="active">
+                    <a class="nav-link" [routerLink]="[ '/authorizations' ]">
+                        <fa name="lock"></fa> Authorizations
+                    </a>
+                </li>
+            </ul>
+            <div class="btn-group" dropdown>
+                <button id="button-basic" dropdownToggle type="button" class="btn btn-link dropdown-toggle" aria-controls="dropdown-basic">
+                    <fa name="user"></fa> {{ userConnected.name }} ({{ userConnected.role.title }}) <span class="caret"></span>
+                </button>
+                <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+                    <li role="menuitem">
+                        <a class="dropdown-item" [routerLink]="[ '/users' ]">
+                            <fa name="info-circle"></fa> Profil
+                        </a>
+                    </li>
+                    <li class="divider dropdown-divider"></li>
+                    <li role="menuitem">
+                        <a class="dropdown-item" [routerLink]="[ '/auth' ]">
+                            <fa name="sign-out"></fa> Sing out
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
