@@ -1,30 +1,44 @@
 import { Injectable } from '@angular/core';
 import { Authorization } from "../../models/authorization.model";
 import { IAuthorizationsServiceDAO } from '../dao/i.authorizations.service.dao';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { SessionService } from './session.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthorizationsService implements IAuthorizationsServiceDAO {
-  
-  constructor(private http: HttpClient) 
-  { }
 
-  create(obj: Authorization): Promise<Authorization> {
-    throw new Error("Method not implemented.");
-  }  readByIdRoleAndIdMenu(idRole: number, idMenu: number): Promise<Authorization> {
-    throw new Error("Method not implemented.");
+  private resourceUrl: string;
+  private headers: HttpHeaders;
+
+  constructor(
+    private http: HttpClient, 
+    private sessionService: SessionService) {
+    this.headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
   }
-  readAll(): Promise<Authorization[]> {
-    throw new Error("Method not implemented.");
+
+  create(obj: Authorization): Observable<Authorization> {
+    return this.http.post<Authorization>(this.resourceUrl, obj, { headers: this.headers });
   }
-  update(obj: Authorization): Promise<void> {
-    throw new Error("Method not implemented.");
+
+  readByIdRoleAndIdMenu(idRole: number, idMenu: number): Observable<Authorization> {
+    return this.http.get<Authorization>(this.resourceUrl + '/' + idRole + '/' + idMenu, { headers: this.headers });
   }
-  delete(idRole: number, idMenu: number): Promise<void> {
-    throw new Error("Method not implemented.");
+
+  readAll(): Observable<Authorization[]> {
+    return this.http.get<Authorization[]>(this.resourceUrl, { headers: this.headers });
+  }
+
+  update(obj: Authorization): Observable<void> {
+    return this.http.put<void>(this.resourceUrl + '/' + obj.idRole + '/' + obj.idMenu, obj, { headers: this.headers });
+  }
+
+  delete(idRole: number, idMenu: number): Observable<void> {
+    return this.http.delete<void>(this.resourceUrl + '/' + idRole + '/' + idMenu, { headers: this.headers });
   }
 
 }

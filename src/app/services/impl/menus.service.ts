@@ -2,29 +2,32 @@ import { Injectable } from '@angular/core';
 import { Menu } from "../../models/menu.model";
 import { IMenusServiceDAO } from '../dao/i.menus.service.dao';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MenusService implements IMenusServiceDAO {
-  
-  constructor(private http: HttpClient) 
-  { }
 
-  create(obj: Menu): Promise<Menu> {
+  constructor(private http: HttpClient) { }
+
+  create(obj: Menu): Observable<Menu> {
     throw new Error("Method not implemented.");
   }
-  readById(id: number): Promise<Menu> {
+
+  readById(id: number): Observable<Menu> {
     throw new Error("Method not implemented.");
   }
-  readAll(): Promise<Menu[]> {
+
+  readAll(): Observable<Menu[]> {
     throw new Error("Method not implemented.");
   }
-  update(obj: Menu): Promise<void> {
+
+  update(obj: Menu): Observable<void> {
     throw new Error("Method not implemented.");
   }
-  delete(id: number): Promise<void> {
+
+  delete(id: number): Observable<void> {
     throw new Error("Method not implemented.");
   }
 

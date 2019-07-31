@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { IRolesServiceDAO } from '../dao/i.roles.service.dao';
 import { Role } from "../../models/role.model";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
 import { TokenJWT } from 'src/app/models/tokenjwt.model';
 import { SessionService } from './session.service';
 import { Observable } from 'rxjs';
@@ -12,23 +11,21 @@ import { Observable } from 'rxjs';
 })
 export class RolesService implements IRolesServiceDAO {
 
-  private resourceUrl : string;
-  private headers     : HttpHeaders;
+  private resourceUrl: string;
+  private headers: HttpHeaders;
 
-  constructor(private http: HttpClient, private sessionService : SessionService) 
-  { 
-    var token : TokenJWT = sessionService.getToken();
-    this.resourceUrl = environment.apiUrl + "/Roles/";
-    this.headers = new HttpHeaders({ 
-                                    'Content-Type':  'application/json',
-                                    'Authorization': 'Bearer ' + token.value
-                                  });
+  constructor(
+    private http: HttpClient, 
+    private sessionService: SessionService) {
+    this.headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
   }
 
   create(obj: Role): Observable<Role> {
     return this.http.post<Role>(this.resourceUrl, obj, { headers: this.headers });
-  }  
-  
+  }
+
   readById(id: number): Observable<Role> {
     return this.http.get<Role>(this.resourceUrl + id, { headers: this.headers });
   }

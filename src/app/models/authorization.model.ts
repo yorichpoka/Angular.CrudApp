@@ -1,13 +1,13 @@
 export class Authorization {
 
     constructor(
-        idRole:         number, 
-        idMenu:         number, 
-        create:         boolean,
-        read:           boolean,
-        update:         boolean,
-        Delete:         boolean,
-        creationDate:   Date
+        public idRole:         number, 
+        public idMenu:         number, 
+        public create:         boolean,
+        public read:           boolean,
+        public update:         boolean,
+        public Delete:         boolean,
+        public creationDate:   Date
     ) 
     { }
 

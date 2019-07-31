@@ -4,11 +4,11 @@ import { Observable } from 'rxjs';
 
 export interface IUsersServiceDAO {
     
-    create(obj: User)           : Observable<User>;
-    readById(id: number)        : Observable<User>;
-    authentication(obj: User)   : Observable<TokenJWT>;
-    readAll()                   : Observable<User[]>;
-    update(obj: User)           : Observable<void>;
-    delete(id: number)          : Observable<void>;
+    create(obj: User)           : Promise<User>;
+    readById(id: number)        : Promise<User>;
+    authentication(obj: User)   : Promise<TokenJWT>;
+    readAll()                   : Promise<User[]>;
+    update(obj: User)           : Promise<void>;
+    delete(id: number)          : Promise<void>;
 
 }

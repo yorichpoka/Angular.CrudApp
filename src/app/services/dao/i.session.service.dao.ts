@@ -7,6 +7,6 @@ export interface ISessionService {
     setToken(tokenJWT : TokenJWT)   : void;
     getUserConnected()              : User;
     setUserConnected(user : User)   : void;
-    resetUserConnected()            : void;
+    clear()                         : void;
 
 }

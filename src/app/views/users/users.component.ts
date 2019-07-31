@@ -37,24 +37,22 @@ export class UsersComponent extends BaseComponent implements OnInit {
   }
 
   loadUsersDataSource() : void {
-    this.usersService.readAll().subscribe(
-      // Next.
-      (data : User[]) => {
-        // this.usersDataSource = new DataSource({ store: { type: 'array', key: 'id', data: data }});
-        this.usersDataSource = new ArrayStore({
-          key: "id",
-          data: data
-        });
-        this.selectedRow = [1];
-      },
-      // Error.
-      (error : HttpErrorResponse) => {
-        this.errorMessage = error.message;
-      },
-      // Complete.
-      () => {
-        console.log('Complete : "usersService.readAll"');
-      }
+    this.usersService
+        .readAll()
+        .then(
+          (dataUsers : User[]) => {
+            this.usersDataSource = new ArrayStore({
+              key: "id",
+              data: dataUsers
+            });
+            this.selectedRow = [1];
+          }
+        )
+        .catch(
+          // Error.
+          (reason : any) => {
+            this.errorMessage = reason.error;
+          }
     );
   }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { User } from 'src/app/models/user.model';
 import { Router } from '@angular/router';
+import { SessionService } from 'src/app/services/impl/session.service';
 
 @Component({
   selector: 'app-header',
@@ -9,10 +10,12 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
-  userConnected  : User;
   @Input() isVisible    : boolean;
+  @Input() userConnected    : User;
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private sessionService : SessionService) { }
 
   ngOnInit() {
     this.init();
@@ -20,21 +23,8 @@ export class HeaderComponent implements OnInit {
 
   init() : void {
     // header.
-    this.isVisible = false;
-    // get User connected.
-    try {
-      this.userConnected = JSON.parse(
-                              sessionStorage.getItem('user')
-                            );
-    } catch {
-      this.userConnected = new User();
-    }
-    console.log(this.userConnected);
-    // redirect when is ot connected.
-    if(!this.userConnected || this.userConnected.id === 0) {
-        // Redirect to main page.
-        this.router.navigate(['/auth']);
-    }
+    this.isVisible      = false;
+    this.userConnected  = this.sessionService.getUserConnected();
   }
 
 }

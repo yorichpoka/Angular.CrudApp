@@ -1,31 +1,44 @@
 import { Injectable } from '@angular/core';
 import { GroupMenu } from "../../models/groupmenu.model";
 import { IGroupMenusServiceDAO } from '../dao/i.groupmenus.service.dao';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { SessionService } from './session.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GroupmenusService implements IGroupMenusServiceDAO {
 
-  constructor(private http: HttpClient) 
-  { }
+  private resourceUrl: string;
+  private headers: HttpHeaders;
 
-  create(obj: GroupMenu): Promise<GroupMenu> {
-    throw new Error("Method not implemented.");
+  constructor(
+    private http: HttpClient, 
+    private sessionService: SessionService) {
+    this.headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
   }
-  readById(id: number): Promise<GroupMenu> {
-    throw new Error("Method not implemented.");
+
+  create(obj: GroupMenu): Observable<GroupMenu> {
+    return this.http.post<GroupMenu>(this.resourceUrl, obj, { headers: this.headers });
   }
-  readAll(): Promise<GroupMenu[]> {
-    throw new Error("Method not implemented.");
+
+  readById(id: number): Observable<GroupMenu> {
+    return this.http.get<GroupMenu>(this.resourceUrl + id, { headers: this.headers });
   }
-  update(obj: GroupMenu): Promise<void> {
-    throw new Error("Method not implemented.");
+
+  readAll(): Observable<GroupMenu[]> {
+    return this.http.get<GroupMenu[]>(this.resourceUrl, { headers: this.headers });
   }
-  delete(id: number): Promise<void> {
-    throw new Error("Method not implemented.");
+
+  update(obj: GroupMenu): Observable<void> {
+    return this.http.put<void>(this.resourceUrl + obj.id, obj, { headers: this.headers });
+  }
+
+  delete(id: number): Observable<void> {
+    return this.http.delete<void>(this.resourceUrl + id, { headers: this.headers });
   }
 
 }

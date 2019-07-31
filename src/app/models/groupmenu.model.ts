@@ -1,8 +1,8 @@
 export class GroupMenu {
 
     constructor(
-        id:     number, 
-        title:  string
+        public id:     number, 
+        public title:  string
     ) 
     { }
 

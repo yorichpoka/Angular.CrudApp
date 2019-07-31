@@ -1,11 +1,12 @@
 import { Authorization } from 'src/app/models/authorization.model';
+import { Observable } from 'rxjs';
 
 export interface IAuthorizationsServiceDAO {
     
-    create(obj: Authorization)                              : Promise<Authorization>;
-    readByIdRoleAndIdMenu(idRole: number, idMenu: number)   : Promise<Authorization>;
-    readAll()                                               : Promise<Authorization[]>;
-    update(obj: Authorization)                              : Promise<void>;
-    delete(idRole: number, idMenu: number)                  : Promise<void>;
+    create(obj: Authorization)                              : Observable<Authorization>;
+    readByIdRoleAndIdMenu(idRole: number, idMenu: number)   : Observable<Authorization>;
+    readAll()                                               : Observable<Authorization[]>;
+    update(obj: Authorization)                              : Observable<void>;
+    delete(idRole: number, idMenu: number)                  : Observable<void>;
 
 }

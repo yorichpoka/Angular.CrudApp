@@ -2,64 +2,72 @@ import { Injectable } from '@angular/core';
 import { TokenJWT } from 'src/app/models/tokenjwt.model';
 import { User } from 'src/app/models/user.model';
 import { ISessionService } from '../dao/i.session.service.dao';
+import { AppSetting } from 'src/app/models/appsetting.model';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class SessionService implements ISessionService {
 
-  private keyTokkenJwt : string;
-  private keyUserConnected : string;
+    private keyTokenJwt     : string;
+    private keyUserConnected: string;
 
-  constructor() {
-      this.keyTokkenJwt = 'keyTokkenJwt';
-      this.keyUserConnected = 'keyUserConnected';
-  }
+    constructor() {
+        this.keyTokenJwt        = 'keyTokenJwt';
+        this.keyUserConnected   = 'keyUserConnected';
+    }
 
-  getToken() : TokenJWT {
-      var tokenJWT : TokenJWT = new TokenJWT();
+    clear(): void {
+        sessionStorage.clear();
+    }
 
-      try {
-          tokenJWT =  JSON.parse(
-                          localStorage.getItem(this.keyTokkenJwt)
-                      );
-      } catch { }
+    // #region token
+    isExistToken(): boolean {
+        var token : TokenJWT = this.getToken();
+        
+        return (token != undefined && token != null);
+    }
 
-      return tokenJWT === null ? new TokenJWT()
-                               : tokenJWT;
-  }
+    getToken(): TokenJWT {
+        var tokenJWT: TokenJWT =    JSON.parse(
+                                        sessionStorage.getItem(this.keyTokenJwt)
+                                    );
+        
+        return tokenJWT;
+    }
 
-  setToken(tokenJWT : TokenJWT) : void {
-      localStorage.setItem(
-                      this.keyTokkenJwt, 
-                      JSON.stringify(tokenJWT)
-                  );
-  }
+    setToken(tokenJWT: TokenJWT): void {
+        sessionStorage.setItem(
+            this.keyTokenJwt,
+            JSON.stringify(tokenJWT)
+        );
+    }
+    //#endregion
 
-  getUserConnected() : User {
-      var user : User = null;
+    // #region User connected.
+    isExistUserConnected(): boolean {
+        var user : User = this.getUserConnected();
+        
+        return (user != undefined && user != null && user.id != 0);
+    }
 
-      try {
-          user =  JSON.parse(
-                          localStorage.getItem(this.keyUserConnected)
-                      );
-      } catch { }
+    getUserConnected(): User {
+        var user: User =    JSON.parse(
+                                sessionStorage.getItem(this.keyUserConnected)
+                            );
+        
+        if(user == undefined || user == null)
+            user = new User();
 
-      return user;
-  }
+        return user;
+    }
 
-  setUserConnected(user : User) : void {
-      localStorage.setItem(
-                      this.keyUserConnected, 
-                      JSON.stringify(user)
-                  );
-  }
-
-  resetUserConnected() : void {
-      localStorage.setItem(
-                      this.keyUserConnected, 
-                      ''
-                  );
-  }
+    setUserConnected(user: User): void {
+        sessionStorage.setItem(
+            this.keyUserConnected,
+            JSON.stringify(user)
+        );
+    }
+    // #endregion
 
 }

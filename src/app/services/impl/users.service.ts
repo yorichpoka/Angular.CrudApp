@@ -2,51 +2,220 @@ import { Injectable } from '@angular/core';
 import { IUsersServiceDAO } from '../dao/i.users.service.dao';
 import { User } from 'src/app/models/user.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
 import { TokenJWT } from 'src/app/models/tokenjwt.model';
-import { Observable } from 'rxjs';
 import { SessionService } from './session.service';
+import { AppsettingsService } from './appsettings.service';
+import { AppSetting } from 'src/app/models/appsetting.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UsersService implements IUsersServiceDAO  {
+export class UsersService implements IUsersServiceDAO {
 
-  private resourceUrl : string;
-  private headers     : HttpHeaders;
+  private headers: HttpHeaders;
+  private urlResource: string;
 
-  constructor(private http: HttpClient, private sessionService : SessionService) 
-  { 
-    var token : TokenJWT = sessionService.getToken();
-    this.resourceUrl = environment.apiUrl + "/users/";
-    this.headers = new HttpHeaders({ 
-                                    'Content-Type':  'application/json',
-                                    'Authorization': 'Bearer ' + token.value
-                                  });
+  constructor(
+    private http: HttpClient,
+    private sessionService: SessionService,
+    private appSettingService: AppsettingsService) {
+    this.urlResource = '/users';
+    this.headers = new HttpHeaders({ 'Content-Type': 'application/json' });
   }
 
-  create(obj: User): Observable<User> {
-    return this.http.post<User>(this.resourceUrl, obj, { headers: this.headers });
-  }  
-  
-  readById(id: number): Observable<User> {
-    return this.http.get<User>(this.resourceUrl + id, { headers: this.headers });
+  create(obj: User): Promise<User> {
+    return new Promise<User>(
+      (resolve, reject) => {
+        this.appSettingService
+          .getAppSettings()
+          .then(
+            (dataAppSetting: AppSetting) => {
+              // Update header.
+              this.headers = this.headers.append('Authorization', 'Bearer ' + this.sessionService.getToken().value);
+
+              this.http.post<User>(dataAppSetting.apiUrl + this.urlResource + '/auth/', obj, { headers: this.headers })
+                .toPromise()
+                .then(
+                  (dataUser: User) => {
+                    resolve(dataUser);
+                  }
+                )
+                .catch(
+                  (reason: any) => {
+                    reject(reason);
+                  }
+                );
+            }
+          )
+          .catch(
+            (reason: any) => {
+              reject(reason);
+            }
+          );
+      }
+    );
   }
 
-  authentication(obj: User): Observable<TokenJWT> {
-    return this.http.post<TokenJWT>(this.resourceUrl + 'auth/', obj);
+  readById(id: number): Promise<User> {
+    return new Promise<User>(
+      (resolve, reject) => {
+        this.appSettingService
+          .getAppSettings()
+          .then(
+            (dataAppSetting: AppSetting) => {
+              // Update header.
+              this.headers = this.headers.append('Authorization', 'Bearer ' + this.sessionService.getToken().value);
+
+              this.http.get<User>(dataAppSetting.apiUrl + this.urlResource + id, { headers: this.headers })
+                .toPromise()
+                .then(
+                  (dataUser: User) => {
+                    resolve(dataUser);
+                  }
+                )
+                .catch(
+                  (reason: any) => {
+                    reject(reason);
+                  }
+                );
+            }
+          )
+          .catch(
+            (reason: any) => {
+              reject(reason);
+            }
+          );
+      }
+    );
   }
 
-  readAll(): Observable<User[]> {
-    return this.http.get<User[]>(this.resourceUrl, { headers: this.headers });
+  authentication(obj: User): Promise<TokenJWT> {
+    return new Promise<TokenJWT>(
+      (resolve, reject) => {
+        this.appSettingService
+          .getAppSettings()
+          .then(
+            (dataAppSetting: AppSetting) => {
+              this.http.post<TokenJWT>(dataAppSetting.apiUrl + this.urlResource + '/auth/', obj, { headers: this.headers })
+                .toPromise()
+                .then(
+                  (dataTokenJWT: TokenJWT) => {
+                    resolve(dataTokenJWT);
+                  }
+                )
+                .catch(
+                  (reason: any) => {
+                    reject(reason);
+                  }
+                );
+            }
+          )
+          .catch(
+            (reason: any) => {
+              reject(reason);
+            }
+          );
+      }
+    );
   }
 
-  update(obj: User): Observable<void> {
-    return this.http.put<void>(this.resourceUrl + obj.id, obj, { headers: this.headers });
+  readAll(): Promise<User[]> {
+    return new Promise<User[]>(
+      (resolve, reject) => {
+        this.appSettingService
+          .getAppSettings()
+          .then(
+            (dataAppSetting: AppSetting) => {
+              // Update header.
+              this.headers = this.headers.append('Authorization', 'Bearer ' + this.sessionService.getToken().value);
+
+              this.http.get<User[]>(dataAppSetting.apiUrl + this.urlResource, { headers: this.headers })
+                .toPromise()
+                .then(
+                  (dataUsers: User[]) => {
+                    resolve(dataUsers);
+                  }
+                )
+                .catch(
+                  (reason: any) => {
+                    reject(reason);
+                  }
+                );
+            }
+          )
+          .catch(
+            (reason: any) => {
+              reject(reason);
+            }
+          );
+      }
+    );
   }
 
-  delete(id: number): Observable<void> {
-    return this.http.delete<void>(this.resourceUrl + id, { headers: this.headers });
+  update(obj: User): Promise<void> {
+    return new Promise<void>(
+      (resolve, reject) => {
+        this.appSettingService
+          .getAppSettings()
+          .then(
+            (dataAppSetting: AppSetting) => {
+              // Update header.
+              this.headers = this.headers.append('Authorization', 'Bearer ' + this.sessionService.getToken().value);
+
+              this.http.put<void>(dataAppSetting.apiUrl + this.urlResource + obj.id, obj, { headers: this.headers })
+                .toPromise()
+                .then(
+                  () => {
+                    resolve();
+                  }
+                )
+                .catch(
+                  (reason: any) => {
+                    reject(reason);
+                  }
+                );
+            }
+          )
+          .catch(
+            (reason: any) => {
+              reject(reason);
+            }
+          );
+      }
+    );
+  }
+
+  delete(id: number): Promise<void> {
+    return new Promise<void>(
+      (resolve, reject) => {
+        this.appSettingService
+          .getAppSettings()
+          .then(
+            (dataAppSetting: AppSetting) => {
+              // Update header.
+              this.headers = this.headers.append('Authorization', 'Bearer ' + this.sessionService.getToken().value);
+
+              this.http.delete<void>(dataAppSetting.apiUrl + this.urlResource + id, { headers: this.headers })
+                .toPromise()
+                .then(
+                  () => {
+                    resolve();
+                  }
+                )
+                .catch(
+                  (reason: any) => {
+                    reject(reason);
+                  }
+                );
+            }
+          )
+          .catch(
+            (reason: any) => {
+              reject(reason);
+            }
+          );
+      }
+    );
   }
 
 }
