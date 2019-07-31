@@ -1,7 +1,7 @@
 import { Role } from 'src/app/models/role.model';
 import { Observable } from 'rxjs';
 
-export interface IRolesServiceDAO {
+export interface IRolesService {
     
     create(obj: Role)       : Observable<Role>;
     readById(id: number)    : Observable<Role>;

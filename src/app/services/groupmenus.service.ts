@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { GroupMenu } from "../../models/groupmenu.model";
-import { IGroupMenusServiceDAO } from '../dao/i.groupmenus.service.dao';
+import { GroupMenu } from "../models/groupmenu.model";
+import { IGroupMenusService } from '../interfaces/groupmenusservice.interface';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { SessionService } from './session.service';
 import { Observable } from 'rxjs';
@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class GroupmenusService implements IGroupMenusServiceDAO {
+export class GroupmenusService implements IGroupMenusService {
 
   private resourceUrl: string;
   private headers: HttpHeaders;

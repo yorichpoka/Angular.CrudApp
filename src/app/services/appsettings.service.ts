@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { IAppsettingsServiceDAO } from '../dao/i.appsettings.service.dao';
+import { IAppsettingsService } from '../interfaces/appsettingsservice.interface';
 import { HttpClient } from '@angular/common/http';
 import { AppSetting } from 'src/app/models/appsetting.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AppsettingsService implements IAppsettingsServiceDAO {
+export class AppsettingsService implements IAppsettingsService {
 
   private keyAppSetting   : string;
 

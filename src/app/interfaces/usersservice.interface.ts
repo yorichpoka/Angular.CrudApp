@@ -2,7 +2,7 @@ import { User } from 'src/app/models/user.model';
 import { TokenJWT } from 'src/app/models/tokenjwt.model';
 import { Observable } from 'rxjs';
 
-export interface IUsersServiceDAO {
+export interface IUsersService {
     
     create(obj: User)           : Promise<User>;
     readById(id: number)        : Promise<User>;

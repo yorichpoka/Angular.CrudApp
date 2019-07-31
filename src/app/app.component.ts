@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { EComponent } from './models/enums/component.enum';
+import { EComponent } from './enums/component.enum';
 import { User } from './models/user.model';
-import { SessionService } from './services/impl/session.service';
+import { SessionService } from './services/session.service';
 
 @Component({
   selector: 'app-root',

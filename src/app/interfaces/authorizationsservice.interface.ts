@@ -1,7 +1,7 @@
 import { Authorization } from 'src/app/models/authorization.model';
 import { Observable } from 'rxjs';
 
-export interface IAuthorizationsServiceDAO {
+export interface IAuthorizationsService {
     
     create(obj: Authorization)                              : Observable<Authorization>;
     readByIdRoleAndIdMenu(idRole: number, idMenu: number)   : Observable<Authorization>;

@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Menu } from "../../models/menu.model";
-import { IMenusServiceDAO } from '../dao/i.menus.service.dao';
+import { Menu } from "../models/menu.model";
+import { IMenusService } from '../interfaces/menusservice.interface';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class MenusService implements IMenusServiceDAO {
+export class MenusService implements IMenusService {
 
   constructor(private http: HttpClient) { }
 

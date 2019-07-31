@@ -1,7 +1,7 @@
 import { GroupMenu } from 'src/app/models/groupmenu.model';
 import { Observable } from 'rxjs';
 
-export interface IGroupMenusServiceDAO {
+export interface IGroupMenusService {
     
     create(obj: GroupMenu)  : Observable<GroupMenu>;
     readById(id: number)    : Observable<GroupMenu>;

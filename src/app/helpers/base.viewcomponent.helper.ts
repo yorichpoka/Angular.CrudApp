@@ -1,6 +1,6 @@
-import { EComponent } from '../models/enums/component.enum';
+import { EComponent } from '../enums/component.enum';
 
-export class BaseComponent {
+export class BaseViewComponent {
 
     public name : EComponent;
 

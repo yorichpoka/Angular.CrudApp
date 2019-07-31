@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TokenJWT } from 'src/app/models/tokenjwt.model';
 import { User } from 'src/app/models/user.model';
-import { ISessionService } from '../dao/i.session.service.dao';
+import { ISessionService } from '../interfaces/sessionservice.interface';
 import { AppSetting } from 'src/app/models/appsetting.model';
 
 @Injectable({

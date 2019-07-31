@@ -1,21 +1,21 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { UsersService } from 'src/app/services/impl/users.service';
 import { User } from 'src/app/models/user.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import DataSource from 'devextreme/data/data_source';
 import ArrayStore from 'devextreme/data/array_store'
 import { DxDataGridComponent } from 'devextreme-angular';
 import { Role } from 'src/app/models/role.model';
-import { RolesService } from 'src/app/services/impl/roles.service';
-import { BaseComponent } from 'src/app/helpers/base.component';
-import { EComponent } from 'src/app/models/enums/component.enum';
+import { RolesService } from 'src/app/services/roles.service';
+import { EComponent } from 'src/app/enums/component.enum';
+import { BaseViewComponent } from 'src/app/helpers/base.viewcomponent.helper';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css']
 })
-export class UsersComponent extends BaseComponent implements OnInit {
+export class UsersComponent extends BaseViewComponent implements OnInit {
 
   @ViewChild(DxDataGridComponent, { static: false }) dataGrid: DxDataGridComponent;
   // usersDataSource : DataSource;

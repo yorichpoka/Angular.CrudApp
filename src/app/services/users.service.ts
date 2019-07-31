@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
-import { IUsersServiceDAO } from '../dao/i.users.service.dao';
 import { User } from 'src/app/models/user.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { TokenJWT } from 'src/app/models/tokenjwt.model';
 import { SessionService } from './session.service';
 import { AppsettingsService } from './appsettings.service';
 import { AppSetting } from 'src/app/models/appsetting.model';
+import { IUsersService } from '../interfaces/usersservice.interface';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UsersService implements IUsersServiceDAO {
+export class UsersService implements IUsersService {
 
   private headers: HttpHeaders;
   private urlResource: string;

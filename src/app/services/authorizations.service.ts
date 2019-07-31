@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Authorization } from "../../models/authorization.model";
-import { IAuthorizationsServiceDAO } from '../dao/i.authorizations.service.dao';
+import { Authorization } from "../models/authorization.model";
+import { IAuthorizationsService } from '../interfaces/authorizationsservice.interface';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { SessionService } from './session.service';
@@ -8,7 +8,7 @@ import { SessionService } from './session.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthorizationsService implements IAuthorizationsServiceDAO {
+export class AuthorizationsService implements IAuthorizationsService {
 
   private resourceUrl: string;
   private headers: HttpHeaders;

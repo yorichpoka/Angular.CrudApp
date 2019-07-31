@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { User } from 'src/app/models/user.model';
 import { Router } from '@angular/router';
-import { SessionService } from 'src/app/services/impl/session.service';
+import { SessionService } from 'src/app/services/session.service';
 
 @Component({
   selector: 'app-header',

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { IRolesServiceDAO } from '../dao/i.roles.service.dao';
-import { Role } from "../../models/role.model";
+import { IRolesService } from '../interfaces/rolesservice.interface';
+import { Role } from "../models/role.model";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { TokenJWT } from 'src/app/models/tokenjwt.model';
 import { SessionService } from './session.service';
@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class RolesService implements IRolesServiceDAO {
+export class RolesService implements IRolesService {
 
   private resourceUrl: string;
   private headers: HttpHeaders;

@@ -1,6 +1,6 @@
 import { AppSetting } from 'src/app/models/appsetting.model';
 
-export interface IAppsettingsServiceDAO {
+export interface IAppsettingsService {
 
     getAppSettings() : Promise<AppSetting>;
 

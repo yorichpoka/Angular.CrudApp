@@ -1,20 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UsersService } from '../../services/impl/users.service';
 import { User } from '../../models/user.model';
 import { TokenJWT } from '../../models/tokenjwt.model';
-import { SessionService } from 'src/app/services/impl/session.service';
-import { BaseComponent } from 'src/app/helpers/base.component';
-import { EComponent } from 'src/app/models/enums/component.enum';
-import { RolesService } from 'src/app/services/impl/roles.service';
+import { SessionService } from 'src/app/services/session.service';
+import { EComponent } from 'src/app/enums/component.enum';
+import { BaseViewComponent } from 'src/app/helpers/base.viewcomponent.helper';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.css']
 })
-export class AuthComponent extends BaseComponent implements OnInit {
+export class AuthComponent extends BaseViewComponent implements OnInit {
 
   userSignInForm: FormGroup;
   errorMessage : string;
