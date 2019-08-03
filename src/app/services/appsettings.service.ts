@@ -8,11 +8,11 @@ import { AppSetting } from 'src/app/models/appsetting.model';
 })
 export class AppsettingsService implements IAppsettingsService {
 
-  private keyAppSetting   : string;
+  private keyAppSetting: string;
 
   constructor(
     private httpClient: HttpClient) {
-      this.keyAppSetting = 'AppSetting';
+    this.keyAppSetting = 'AppSetting';
   }
 
   getAppSettings(): Promise<AppSetting> {
@@ -22,8 +22,7 @@ export class AppsettingsService implements IAppsettingsService {
         if (this.isExistAppSetting()) {
           // Send result.
           resolve(this.getAppSetting());
-        }
-        else {
+        } else {
           this.httpClient.get<AppSetting>("appsettings.json")
             .toPromise()
             .then(

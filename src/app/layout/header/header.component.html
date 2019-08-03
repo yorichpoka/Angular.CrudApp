@@ -1,5 +1,5 @@
 <div class="container">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light rounded border shadow" [hidden]="!isVisible">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light rounded border shadow" [hidden]="userConnected.id == 0">
         <a class="navbar-brand" [routerLink]="[ '/auth' ]">
             <img src="assets/images/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
             Crud App
@@ -42,13 +42,13 @@
                 </button>
                 <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
                     <li role="menuitem">
-                        <a class="dropdown-item" [routerLink]="[ '/users' ]">
+                        <a class="dropdown-item" href="Javascript:;" (click)="profil()">
                             <fa name="info-circle"></fa> Profil
                         </a>
                     </li>
                     <li class="divider dropdown-divider"></li>
                     <li role="menuitem">
-                        <a class="dropdown-item" [routerLink]="[ '/auth' ]">
+                        <a class="dropdown-item" href="Javascript:;" (click)="disconnect()">
                             <fa name="sign-out"></fa> Sing out
                         </a>
                     </li>

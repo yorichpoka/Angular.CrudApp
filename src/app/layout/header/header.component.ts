@@ -10,8 +10,7 @@ import { SessionService } from 'src/app/services/session.service';
 })
 export class HeaderComponent implements OnInit {
 
-  @Input() isVisible    : boolean;
-  @Input() userConnected    : User;
+  @Input() userConnected  : User;
 
   constructor(
     private router: Router,
@@ -21,10 +20,19 @@ export class HeaderComponent implements OnInit {
     this.init();
   }
 
-  init() : void {
-    // header.
-    this.isVisible      = false;
+  init() : void {   
     this.userConnected  = this.sessionService.getUserConnected();
+  }
+
+  disconnect() : void {
+    // Clear session.
+    this.sessionService.clear();
+    // Redirect to auth page.
+    this.router.navigate(['/auth']);
+  }
+
+  profil() : void {
+    
   }
 
 }

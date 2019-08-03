@@ -11,7 +11,6 @@ import { SessionService } from './services/session.service';
 })
 export class AppComponent implements OnInit {
 
-  isHeaderVisible: boolean;
   userConnected: User;
 
   constructor(
@@ -23,7 +22,6 @@ export class AppComponent implements OnInit {
   }
 
   init(): void {
-    this.isHeaderVisible = false;
     this.titleService.setTitle('CrudApp');
   }
 
@@ -31,11 +29,9 @@ export class AppComponent implements OnInit {
     this.userConnected = this.sessionService.getUserConnected();
     
     if (component.name == EComponent.AuthComponent) {
-      this.isHeaderVisible = false;
-      this.titleService.setTitle('Auth - CrudApp');
+      this.titleService.setTitle('Authentication - CrudApp');
     }
     else if (component.name == EComponent.UsersComponent) {
-      this.isHeaderVisible = true;
       this.titleService.setTitle('User - CrudApp');
     }
   }

@@ -1,23 +1,28 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { AuthComponent } from './views/auth/auth.component';
 import { RolesService } from './services/roles.service';
 import { MenusService } from './services/menus.service';
 import { GroupmenusService } from './services/groupmenus.service';
 import { AuthorizationsService } from './services/authorizations.service';
-import { HttpClientModule } from '@angular/common/http';
-import { HeaderComponent } from './layout/header/header.component';
-import { FooterComponent } from './layout/footer/footer.component';
-import { AngularFontAwesomeModule } from 'angular-font-awesome';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { UsersComponent } from './views/users/users.component';
-import { DxButtonModule, DxDataGridModule } from 'devextreme-angular';
 import { SessionService } from './services/session.service';
 import { UsersService } from './services/users.service';
+import { AppStartService } from './services/appstart.service';
+import { HttpInterceptorTokenJwtService } from './services/httpinterceptortokenjwt.service';
+import { AppComponent } from './app.component';
+import { AuthComponent } from './views/auth/auth.component';
+import { HeaderComponent } from './layout/header/header.component';
+import { FooterComponent } from './layout/footer/footer.component';
+import { UsersComponent } from './views/users/users.component';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { DxButtonModule, DxDataGridModule, DxLoadPanelModule } from 'devextreme-angular';
+import { LoadPanelComponent } from './components/load-panel/load-panel.component';
+import { PopoverComponent } from './components/popover/popover.component';
+import { main } from './program';
 
 @NgModule({
   declarations: [
@@ -25,7 +30,9 @@ import { UsersService } from './services/users.service';
     AuthComponent,
     HeaderComponent,
     FooterComponent,
-    UsersComponent
+    UsersComponent,
+    LoadPanelComponent,
+    PopoverComponent
   ],
   imports: [
     BrowserModule,
@@ -37,6 +44,7 @@ import { UsersService } from './services/users.service';
     // Devextreme.
     DxButtonModule,
     DxDataGridModule,
+    DxLoadPanelModule,
     // ngx-bootstrap.
     BsDropdownModule.forRoot()
   ],
@@ -46,7 +54,19 @@ import { UsersService } from './services/users.service';
     MenusService,
     GroupmenusService,
     AuthorizationsService,
-    SessionService
+    SessionService,
+    AppStartService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptorTokenJwtService,
+      multi: true
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: main,
+      deps: [AppStartService],
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

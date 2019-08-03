@@ -7,6 +7,8 @@ import { SessionService } from 'src/app/services/session.service';
 import { EComponent } from 'src/app/enums/component.enum';
 import { BaseViewComponent } from 'src/app/helpers/base.viewcomponent.helper';
 import { UsersService } from 'src/app/services/users.service';
+import notify from 'devextreme/ui/notify';
+import { ETypeNotify } from 'src/app/enums/typenotify';
 
 @Component({
   selector: 'app-auth',
@@ -39,6 +41,7 @@ export class AuthComponent extends BaseViewComponent implements OnInit {
     this.usersService
         .authentication(user)
         .then(
+          // Success.
           (dataTokenJWT : TokenJWT) => {
             // get localsession.
             this.sessionService.setToken(dataTokenJWT);
@@ -46,11 +49,10 @@ export class AuthComponent extends BaseViewComponent implements OnInit {
             this.sessionService.setUserConnected(dataTokenJWT.user);
             // Redirect to main page.
             this.router.navigate(['/users']);
-          }
-        )
-        .catch(
+          },
+          // Fail.
           (reason : any) => {
-            this.errorMessage = JSON.stringify(reason);
+            notify({message : JSON.stringify(reason), width : 'auto' }, ETypeNotify.Error, 3000);
           }
         );
   }

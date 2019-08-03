@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { GroupMenu } from "../models/groupmenu.model";
+import { GroupMenu } from '../models/groupmenu.model';
 import { IGroupMenusService } from '../interfaces/groupmenusservice.interface';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { SessionService } from './session.service';

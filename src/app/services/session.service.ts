@@ -2,20 +2,16 @@ import { Injectable } from '@angular/core';
 import { TokenJWT } from 'src/app/models/tokenjwt.model';
 import { User } from 'src/app/models/user.model';
 import { ISessionService } from '../interfaces/sessionservice.interface';
-import { AppSetting } from 'src/app/models/appsetting.model';
 
 @Injectable({
     providedIn: 'root'
 })
 export class SessionService implements ISessionService {
 
-    private keyTokenJwt     : string;
-    private keyUserConnected: string;
+    private keyTokenJwt: string = 'keyTokenJwt';
+    private keyUserConnected: string = 'keyUserConnected';
 
-    constructor() {
-        this.keyTokenJwt        = 'keyTokenJwt';
-        this.keyUserConnected   = 'keyUserConnected';
-    }
+    constructor() { }
 
     clear(): void {
         sessionStorage.clear();
@@ -23,16 +19,16 @@ export class SessionService implements ISessionService {
 
     // #region token
     isExistToken(): boolean {
-        var token : TokenJWT = this.getToken();
-        
+        var token: TokenJWT = this.getToken();
+
         return (token != undefined && token != null);
     }
 
     getToken(): TokenJWT {
-        var tokenJWT: TokenJWT =    JSON.parse(
-                                        sessionStorage.getItem(this.keyTokenJwt)
-                                    );
-        
+        var tokenJWT: TokenJWT = JSON.parse(
+            sessionStorage.getItem(this.keyTokenJwt)
+        );
+
         return tokenJWT;
     }
 
@@ -46,18 +42,19 @@ export class SessionService implements ISessionService {
 
     // #region User connected.
     isExistUserConnected(): boolean {
-        var user : User = this.getUserConnected();
-        
+        var user: User = this.getUserConnected();
+
         return (user != undefined && user != null && user.id != 0);
     }
 
     getUserConnected(): User {
-        var user: User =    JSON.parse(
-                                sessionStorage.getItem(this.keyUserConnected)
-                            );
-        
-        if(user == undefined || user == null)
+        var user: User = JSON.parse(
+            sessionStorage.getItem(this.keyUserConnected)
+        );
+
+        if (user == undefined || user == null) {
             user = new User();
+        }
 
         return user;
     }
