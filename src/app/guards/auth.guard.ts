@@ -17,21 +17,8 @@ export class AuthGuard implements  CanActivate {
   canActivate() : boolean {
     const canActivate : boolean = this.sessionService.getUser().id !== 0;
     
-    if(!canActivate) {
+    if(!canActivate)
       this.router.navigate(['/auth']);
-    } else {
-      // Update token.
-      this.userService
-          .authentication(this.sessionService.getUser())
-          .then(
-            // Success.
-            (dataTokenJwt : TokenJWT) => {
-              this.sessionService.setToken(dataTokenJwt);
-              // Log.
-              console.log('token updated');
-            }
-          );
-    }
 
     return canActivate;
   }

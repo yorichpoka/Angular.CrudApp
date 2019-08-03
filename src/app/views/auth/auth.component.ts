@@ -65,11 +65,11 @@ export class AuthComponent extends BaseViewComponent implements OnInit {
     this.userSignInForm = this.formBuilder.group({
       login: [
         '', 
-        [Validators.required]
+        [Validators.required, Validators.minLength(3)]
       ],
       password: [
         '', 
-        [Validators.required, Validators.pattern(/[0-9a-zA-Z]{6,}/)]
+        [Validators.required, Validators.minLength(3)]
       ]
     });
   }

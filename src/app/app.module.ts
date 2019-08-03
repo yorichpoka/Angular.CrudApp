@@ -23,6 +23,7 @@ import { DxButtonModule, DxDataGridModule, DxLoadPanelModule } from 'devextreme-
 import { LoadPanelComponent } from './components/load-panel/load-panel.component';
 import { PopoverComponent } from './components/popover/popover.component';
 import { main } from './program';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { main } from './program';
     DxDataGridModule,
     DxLoadPanelModule,
     // ngx-bootstrap.
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
+    ModalModule.forRoot()
   ],
   providers: [
     UsersService,
