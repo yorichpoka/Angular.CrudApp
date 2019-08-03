@@ -9,31 +9,26 @@ import { ISessionService } from '../interfaces/sessionservice.interface';
 export class SessionService implements ISessionService {
 
     private keyTokenJwt: string = 'keyTokenJwt';
-    private keyUserConnected: string = 'keyUserConnected';
+    private keyUser: string = 'keyUser';
 
     constructor() { }
 
-    clear(): void {
-        sessionStorage.clear();
+    init(): void {
+        this.setToken(new TokenJWT());
+        this.setUser(new User());
     }
 
     // #region token
-    isExistToken(): boolean {
-        var token: TokenJWT = this.getToken();
-
-        return (token != undefined && token != null);
-    }
-
     getToken(): TokenJWT {
-        var tokenJWT: TokenJWT = JSON.parse(
-            sessionStorage.getItem(this.keyTokenJwt)
-        );
+        const tokenJWT: TokenJWT =  JSON.parse(
+                                        localStorage.getItem(this.keyTokenJwt)
+                                    );
 
         return tokenJWT;
     }
 
     setToken(tokenJWT: TokenJWT): void {
-        sessionStorage.setItem(
+        localStorage.setItem(
             this.keyTokenJwt,
             JSON.stringify(tokenJWT)
         );
@@ -41,27 +36,17 @@ export class SessionService implements ISessionService {
     //#endregion
 
     // #region User connected.
-    isExistUserConnected(): boolean {
-        var user: User = this.getUserConnected();
-
-        return (user != undefined && user != null && user.id != 0);
-    }
-
-    getUserConnected(): User {
-        var user: User = JSON.parse(
-            sessionStorage.getItem(this.keyUserConnected)
-        );
-
-        if (user == undefined || user == null) {
-            user = new User();
-        }
+    getUser(): User {
+        const user: User =  JSON.parse(
+                                localStorage.getItem(this.keyUser)
+                            );
 
         return user;
     }
 
-    setUserConnected(user: User): void {
-        sessionStorage.setItem(
-            this.keyUserConnected,
+    setUser(user: User): void {
+        localStorage.setItem(
+            this.keyUser,
             JSON.stringify(user)
         );
     }

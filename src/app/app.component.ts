@@ -26,7 +26,7 @@ export class AppComponent implements OnInit {
   }
 
   onActivate(component: any): void {
-    this.userConnected = this.sessionService.getUserConnected();
+    this.userConnected = this.sessionService.getUser();
     
     if (component.name == EComponent.AuthComponent) {
       this.titleService.setTitle('Authentication - CrudApp');

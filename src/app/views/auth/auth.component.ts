@@ -46,7 +46,7 @@ export class AuthComponent extends BaseViewComponent implements OnInit {
             // get localsession.
             this.sessionService.setToken(dataTokenJWT);
             // set user session.
-            this.sessionService.setUserConnected(dataTokenJWT.user);
+            this.sessionService.setUser(dataTokenJWT.user);
             // Redirect to main page.
             this.router.navigate(['/users']);
           },
@@ -60,8 +60,7 @@ export class AuthComponent extends BaseViewComponent implements OnInit {
   // Init form values.
   initForm() {
     // Reset user connected.
-    this.sessionService.clear();
-
+    this.sessionService.init();
     // Init form.
     this.userSignInForm = this.formBuilder.group({
       login: [

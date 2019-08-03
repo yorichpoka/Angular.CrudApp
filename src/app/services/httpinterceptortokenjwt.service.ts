@@ -13,8 +13,7 @@ export class HttpInterceptorTokenJwtService implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // Get token.
-    var tokenJwt: TokenJWT = this.sessionService.isExistToken() ? this.sessionService.getToken()
-                                                                : new TokenJWT();;
+    var tokenJwt: TokenJWT = this.sessionService.getToken();
     // Update request.
     request = request.clone({
       headers: request.headers.set('Content-Type',  'application/json')

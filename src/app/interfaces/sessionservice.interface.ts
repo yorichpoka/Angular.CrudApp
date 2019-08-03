@@ -5,8 +5,8 @@ export interface ISessionService {
     
     getToken()                      : TokenJWT;
     setToken(tokenJWT : TokenJWT)   : void;
-    getUserConnected()              : User;
-    setUserConnected(user : User)   : void;
-    clear()                         : void;
+    getUser()                       : User;
+    setUser(user : User)            : void;
+    init()                          : void;
 
 }

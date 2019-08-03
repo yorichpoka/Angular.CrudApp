@@ -21,12 +21,12 @@ export class HeaderComponent implements OnInit {
   }
 
   init() : void {   
-    this.userConnected  = this.sessionService.getUserConnected();
+    this.userConnected  = this.sessionService.getUser();
   }
 
   disconnect() : void {
     // Clear session.
-    this.sessionService.clear();
+    this.sessionService.init();
     // Redirect to auth page.
     this.router.navigate(['/auth']);
   }

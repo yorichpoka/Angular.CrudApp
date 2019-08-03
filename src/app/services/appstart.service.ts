@@ -14,8 +14,6 @@ export class AppStartService implements IAppStartService {
       (resolve, reject) => {
         // Log.
         console.log('Application start.');
-        // Clear session.
-        this.sessionService.clear();
         // Send.
         resolve();
       }
