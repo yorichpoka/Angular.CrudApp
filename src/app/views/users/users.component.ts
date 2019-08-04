@@ -63,20 +63,18 @@ export class UsersComponent extends BaseViewComponent implements OnInit {
   }
 
   loadRolesDataSource() : void {
-    this.rolesService.readAll().subscribe(
-      // Next.
-      (data : Role[]) => {
-        this.rolesDataSource = data;
-      },
-      // Error.
-      (error : HttpErrorResponse) => {
-        this.errorMessage = error.message;
-      },
-      // Complete.
-      () => {
-        console.log('Complete : "rolesService.readAll"');
-      }
-    );
+    this.rolesService
+        .readAll()
+        .then(
+          // Success.
+          (data : Role[]) => {
+            this.rolesDataSource = data;
+          },
+          // Fail.
+          (error : HttpErrorResponse) => {
+            this.errorMessage = error.message;
+          }
+        );
   }
 
   selectionChanged(data: any) {

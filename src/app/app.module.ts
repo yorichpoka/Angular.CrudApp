@@ -6,7 +6,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { RolesService } from './services/roles.service';
 import { MenusService } from './services/menus.service';
-import { GroupmenusService } from './services/groupmenus.service';
+import { GroupMenusService } from './services/groupmenus.service';
 import { AuthorizationsService } from './services/authorizations.service';
 import { SessionService } from './services/session.service';
 import { UsersService } from './services/users.service';
@@ -54,7 +54,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     UsersService,
     RolesService,
     MenusService,
-    GroupmenusService,
+    GroupMenusService,
     AuthorizationsService,
     SessionService,
     AppStartService,

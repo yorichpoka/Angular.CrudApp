@@ -31,7 +31,7 @@ export class UsersService implements IUsersService {
   }
 
   authentication(obj: User): Promise<TokenJWT> {
-    return this.http.post<TokenJWT>(this.appSetting.apiUrl + this.urlResource + '/auth/', obj)
+    return this.http.post<TokenJWT>(this.appSetting.apiUrl + this.urlResource + 'auth/', obj)
                     .toPromise();
   }
 
