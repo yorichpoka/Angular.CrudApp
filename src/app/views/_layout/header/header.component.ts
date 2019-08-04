@@ -10,23 +10,13 @@ import { SessionService } from 'src/app/services/session.service';
 })
 export class HeaderComponent implements OnInit {
 
-  @Input() userConnected  : User;
+  @Input() userConnected  : User = new User();
 
-  constructor(
-    private router: Router,
-    private sessionService : SessionService) { }
+  constructor(private router: Router) { }
 
-  ngOnInit() {
-    this.init();
-  }
-
-  init() : void {   
-    this.userConnected  = this.sessionService.getUser();
-  }
+  ngOnInit() { }
 
   disconnect() : void {
-    // Clear session.
-    this.sessionService.init();
     // Redirect to auth page.
     this.router.navigate(['/auth']);
   }

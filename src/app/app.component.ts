@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { EComponent } from './enums/component.enum';
 import { User } from './models/user.model';
-import { SessionService } from './services/session.service';
 
 @Component({
   selector: 'app-root',
@@ -11,29 +10,30 @@ import { SessionService } from './services/session.service';
 })
 export class AppComponent implements OnInit {
 
-  userConnected: User;
+  userConnected: User = new User();
 
-  constructor(
-    private titleService: Title,
-    private sessionService : SessionService) { }
+  constructor(private titleService: Title) { }
 
-  ngOnInit(): void {
-    this.init();
-  }
-
-  init(): void {
-    this.titleService.setTitle('CrudApp');
-  }
+  ngOnInit() { }
 
   onActivate(component: any): void {
-    this.userConnected = this.sessionService.getUser();
-    
+    // #region AuthComponent
     if (component.name == EComponent.AuthComponent) {
-      this.titleService.setTitle('Authentication - CrudApp');
+      this.titleService.setTitle('Auth - CrudApp');
+      // Subscribe to the emitter.
+      (<EventEmitter<User>>component.eEUserConnected).subscribe(
+        (dataUser : User) => {
+          this.userConnected = dataUser;
+        }
+      );
     }
+    // #endregion
+
+    // #region UsersComponent
     else if (component.name == EComponent.UsersComponent) {
-      this.titleService.setTitle('User - CrudApp');
+      this.titleService.setTitle('Users - CrudApp');
     }
+    // #endregion
   }
 
 }
