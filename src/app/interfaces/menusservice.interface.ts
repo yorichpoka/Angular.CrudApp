@@ -1,12 +1,11 @@
 import { Menu } from 'src/app/models/menu.model';
-import { Observable } from 'rxjs';
 
 export interface IMenusService {
     
-    create(obj: Menu)       : Observable<Menu>;
-    readById(id: number)    : Observable<Menu>;
-    readAll()               : Observable<Menu[]>;
-    update(obj: Menu)       : Observable<void>;
-    delete(id: number)      : Observable<void>;
+    create(obj: Menu)       : Promise<Menu>;
+    readById(id: number)    : Promise<Menu>;
+    readAll()               : Promise<Menu[]>;
+    update(obj: Menu)       : Promise<void>;
+    delete(id: number)      : Promise<void>;
 
 }

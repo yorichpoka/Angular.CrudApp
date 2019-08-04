@@ -1,12 +1,11 @@
 import { GroupMenu } from 'src/app/models/groupmenu.model';
-import { Observable } from 'rxjs';
 
 export interface IGroupMenusService {
     
-    create(obj: GroupMenu)  : Observable<GroupMenu>;
-    readById(id: number)    : Observable<GroupMenu>;
-    readAll()               : Observable<GroupMenu[]>;
-    update(obj: GroupMenu)  : Observable<void>;
-    delete(id: number)      : Observable<void>;
+    create(obj: GroupMenu)  : Promise<GroupMenu>;
+    readById(id: number)    : Promise<GroupMenu>;
+    readAll()               : Promise<GroupMenu[]>;
+    update(obj: GroupMenu)  : Promise<void>;
+    delete(id: number)      : Promise<void>;
 
 }

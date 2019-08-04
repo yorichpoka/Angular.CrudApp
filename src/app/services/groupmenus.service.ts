@@ -1,44 +1,47 @@
 import { Injectable } from '@angular/core';
-import { GroupMenu } from '../models/groupmenu.model';
-import { IGroupMenusService } from '../interfaces/groupmenusservice.interface';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { SessionService } from './session.service';
-import { Observable } from 'rxjs';
+import { AppSetting } from '../models/appsetting.model';
+import { IGroupMenusService } from '../interfaces/groupmenusservice.interface';
+import { GroupMenu } from '../models/groupmenu.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class GroupmenusService implements IGroupMenusService {
+export class GroupMenusService implements IGroupMenusService {
 
-  private resourceUrl: string;
-  private headers: HttpHeaders;
+  private urlResource : string = '/groupMenus/';
+  private appSetting  : AppSetting = new AppSetting();
 
   constructor(
     private http: HttpClient, 
     private sessionService: SessionService) {
-    this.headers = new HttpHeaders({
-      'Content-Type': 'application/json'
-    });
+      this.appSetting = this.sessionService.getAppSetting();
   }
 
-  create(obj: GroupMenu): Observable<GroupMenu> {
-    return this.http.post<GroupMenu>(this.resourceUrl, obj, { headers: this.headers });
+  create(obj: GroupMenu): Promise<GroupMenu> {
+    return this.http.post<GroupMenu>(this.appSetting.apiUrl + this.urlResource, obj)
+                    .toPromise();
   }
 
-  readById(id: number): Observable<GroupMenu> {
-    return this.http.get<GroupMenu>(this.resourceUrl + id, { headers: this.headers });
+  readById(id: number): Promise<GroupMenu> {
+    return  this.http.get<GroupMenu>(this.appSetting.apiUrl + this.urlResource + id)
+                .toPromise();
   }
 
-  readAll(): Observable<GroupMenu[]> {
-    return this.http.get<GroupMenu[]>(this.resourceUrl, { headers: this.headers });
+  readAll(): Promise<GroupMenu[]> {
+    return  this.http.get<GroupMenu[]>(this.appSetting.apiUrl + this.urlResource)
+                .toPromise();
   }
 
-  update(obj: GroupMenu): Observable<void> {
-    return this.http.put<void>(this.resourceUrl + obj.id, obj, { headers: this.headers });
+  update(obj: GroupMenu): Promise<void> {
+    return  this.http.put<void>(this.appSetting.apiUrl + this.urlResource + obj.id, obj)
+                .toPromise();
   }
 
-  delete(id: number): Observable<void> {
-    return this.http.delete<void>(this.resourceUrl + id, { headers: this.headers });
+  delete(id: number): Promise<void> {
+    return  this.http.delete<void>(this.appSetting.apiUrl + this.urlResource + id)
+                .toPromise();
   }
 
 }
