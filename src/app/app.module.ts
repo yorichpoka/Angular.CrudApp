@@ -11,7 +11,7 @@ import { AuthorizationsService } from './services/authorizations.service';
 import { SessionService } from './services/session.service';
 import { UsersService } from './services/users.service';
 import { AppStartService } from './services/appstart.service';
-import { HttpInterceptorTokenJwtService } from './services/httpinterceptortokenjwt.service';
+import { HttpInterceptorService } from './services/httpinterceptor.service';
 import { AppComponent } from './app.component';
 import { AuthComponent } from './views/auth/auth.component';
 import { HeaderComponent } from './layout/header/header.component';
@@ -60,7 +60,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     AppStartService,
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: HttpInterceptorTokenJwtService,
+      useClass: HttpInterceptorService,
       multi: true
     },
     {

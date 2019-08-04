@@ -7,7 +7,7 @@ import { TokenJWT } from '../models/tokenjwt.model';
 @Injectable({
   providedIn: 'root'
 })
-export class HttpInterceptorTokenJwtService implements HttpInterceptor {
+export class HttpInterceptorService implements HttpInterceptor {
 
   constructor(private sessionService: SessionService) { }
 
