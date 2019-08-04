@@ -14,8 +14,6 @@ import { AppStartService } from './services/appstart.service';
 import { HttpInterceptorService } from './services/httpinterceptor.service';
 import { AppComponent } from './app.component';
 import { AuthComponent } from './views/auth/auth.component';
-import { HeaderComponent } from './layout/header/header.component';
-import { FooterComponent } from './layout/footer/footer.component';
 import { UsersComponent } from './views/users/users.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
@@ -24,6 +22,8 @@ import { LoadPanelComponent } from './components/load-panel/load-panel.component
 import { PopoverComponent } from './components/popover/popover.component';
 import { main } from './program';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { HeaderComponent } from './views/_layout/header/header.component';
+import { FooterComponent } from './views/_layout/footer/footer.component';
 
 @NgModule({
   declarations: [
