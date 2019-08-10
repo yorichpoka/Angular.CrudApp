@@ -1,0 +1,30 @@
+
+<div class="py-5 d-none d-md-block"></div>
+
+<div class="py-2 d-none d-md-block"></div>
+
+<form class="form-signin" [formGroup]="userSignInForm" (ngSubmit)="onSignIn()">
+
+    <div class="text-center">
+        <img class="mb-4 text-center" src="assets/images/bootstrap-solid.svg" alt="" width="72" height="72">
+    </div>
+
+    <label for="inputLogin" class="sr-only">
+        Login
+    </label>
+    <input type="login" id="inputLogin" class="form-control" placeholder="Login..." required autofocus formControlName="login">
+
+    <label for="inputPassword" class="sr-only">
+        Password
+    </label>
+    <input type="password" id="inputPassword" class="form-control" placeholder="Password..." required formControlName="password">
+    
+    <button class="btn btn-lg btn-secondary btn-block mt-4" type="submit" [disabled]="userSignInForm.invalid || loadingButton.isVisible">
+        <span [innerHTML]="loadingButton.getHtmlText()"></span>
+    </button>
+
+</form>
+
+<div class="py-5 d-none d-md-block"></div>
+
+<div class="py-5 d-none d-md-block"></div>
