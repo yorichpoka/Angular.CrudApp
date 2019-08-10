@@ -1,75 +1,58 @@
 import { Injectable } from '@angular/core';
-import { TokenJWT } from 'src/app/models/tokenjwt.model';
-import { User } from 'src/app/models/user.model';
 import { ISessionService } from '../interfaces/sessionservice.interface';
+import { Connexion } from '../helpers/connexion.helper';
 import { AppSetting } from '../models/appsetting.model';
+import { User } from '../models/user.model';
+import { TokenJWT } from '../models/tokenjwt.model';
 
 @Injectable({
     providedIn: 'root'
 })
 export class SessionService implements ISessionService {
 
-    private keyTokenJwt     : string = 'keyTokenJwt';
-    private keyUser         : string = 'keyUser';
-    private keyAppSetting   : string = 'keyAppSetting';
+    private keyConnexion: string = 'keyConnexion';
 
     constructor() { }
 
     init(): void {
-        this.setToken(new TokenJWT());
-        this.setUser(new User());
-        this.setAppSetting(new AppSetting());
+        sessionStorage.clear();
+        this.setConnexion(new Connexion());
     }
 
-    // #region token
-    getToken(): TokenJWT {
-        const tokenJWT: TokenJWT =  JSON.parse(
-                                        localStorage.getItem(this.keyTokenJwt)
-                                    );
+    getConnexion(): Connexion {
+        var connexion: Connexion = JSON.parse(
+            sessionStorage.getItem(this.keyConnexion)
+        );
 
-        return tokenJWT;
+        if(connexion == null)
+            connexion = new Connexion();
+
+        return connexion;
     }
 
-    setToken(tokenJWT: TokenJWT): void {
-        localStorage.setItem(
-            this.keyTokenJwt,
-            JSON.stringify(tokenJWT)
+    setConnexion(connexion: Connexion): void {
+        sessionStorage.setItem(
+            this.keyConnexion,
+            JSON.stringify(connexion)
         );
     }
-    //#endregion
 
-    // #region User connected.
-    getUser(): User {
-        const user: User =  JSON.parse(
-                                localStorage.getItem(this.keyUser)
-                            );
-
-        return user;
+    setAppSetting(appSetting: AppSetting) : void {
+        var connexion : Connexion = this.getConnexion();
+        connexion.appSetting = appSetting;
+        this.setConnexion(connexion);
     }
 
-    setUser(user: User): void {
-        localStorage.setItem(
-            this.keyUser,
-            JSON.stringify(user)
-        );
-    }
-    // #endregion
-
-    // #region Appsetting.
-    getAppSetting(): AppSetting {
-        const appsetting: AppSetting =  JSON.parse(
-                                            localStorage.getItem(this.keyAppSetting)
-                                        );
-
-        return appsetting;
+    setUser(user: User) : void {
+        var connexion : Connexion = this.getConnexion();
+        connexion.user = user;
+        this.setConnexion(connexion);
     }
 
-    setAppSetting(appsetting: AppSetting): void {
-        localStorage.setItem(
-            this.keyAppSetting,
-            JSON.stringify(appsetting)
-        );
+    setToken(tokenJwt: TokenJWT) : void {
+        var connexion : Connexion = this.getConnexion();
+        connexion.tokenJwt = tokenJwt;
+        this.setConnexion(connexion);
     }
-    // #endregion
-    
+
 }

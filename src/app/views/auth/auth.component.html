@@ -19,8 +19,8 @@
     </label>
     <input type="password" id="inputPassword" class="form-control" placeholder="Password..." required formControlName="password">
     
-    <button class="btn btn-lg btn-secondary btn-block mt-4" type="submit" [disabled]="userSignInForm.invalid">
-        <fa name="sign-in"></fa> Sign in
+    <button class="btn btn-lg btn-secondary btn-block mt-4" type="submit" [disabled]="userSignInForm.invalid || loadingButton.isVisible">
+        <span [innerHTML]="loadingButton.getHtmlText()"></span>
     </button>
 
 </form>

@@ -7,9 +7,6 @@ export function messageConfirmdDelete() : string {
             '</p>';
 }
 
-export function notification(message : string, type? : ETypeNotify) : void {
-    if(type == null)
-        type = ETypeNotify.Error;
-        
-    notify({message : message, width : 300 }, type, 4000);
+export function notification(message : string, type : ETypeNotify = ETypeNotify.Error, duration : number = 4000) : void {
+    notify({message : message, width : 300 }, type, duration);
 }

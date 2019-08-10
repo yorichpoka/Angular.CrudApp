@@ -16,7 +16,7 @@
         <div class="card-body">
             <dx-data-grid id="gridContainer" class="dx-theme-border-color" [dataSource]="usersDataSource"
                 [showColumnLines]="true" [showRowLines]="false" [showBorders]="true" [cacheEnabled]="false"
-                (onSelectionChanged)="selectionChanged($event)" [(selectedRowKeys)]="selectedRow">
+                (onSelectionChanged)="selectionChanged($event)">
                 <!-- Parameters -->
                 <dxo-paging [pageSize]="1"></dxo-paging>
                 <dxo-selection mode="multiple"></dxo-selection>
@@ -71,6 +71,7 @@
                     <div class="form-group col-12">
                         <label for="idRole">Role :</label>
                         <select class="form-control form-control-sm" id="idRole" formControlName="idRole" autofocus>
+                            <option  *ngFor="let role of rolesDataSource" value="{{role.id}}">{{ role.title }}</option>
                             <option value="0">Select</option>
                         </select>
                     </div>

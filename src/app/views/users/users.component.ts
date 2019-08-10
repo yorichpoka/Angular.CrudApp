@@ -25,8 +25,6 @@ export class UsersComponent extends BaseViewComponent implements OnInit {
   @ViewChild(DxDataGridComponent, { static: false }) dataGrid: DxDataGridComponent;
   usersDataSource : ArrayStore;
   rolesDataSource : Role[];
-  errorMessage    : string;
-  selectedRow     : Array<number>;
   selectedItemKeys: any[] = [];
 
   constructor(
@@ -51,28 +49,16 @@ export class UsersComponent extends BaseViewComponent implements OnInit {
               key: "id",
               data: dataUsers
             });
-            this.selectedRow = [1];
           }
-        )
-        .catch(
-          // Error.
-          (reason : any) => {
-            this.errorMessage = reason.error;
-          }
-    );
+        );
   }
 
   loadRolesDataSource() : void {
     this.rolesService
         .readAll()
         .then(
-          // Success.
           (data : Role[]) => {
             this.rolesDataSource = data;
-          },
-          // Fail.
-          (error : HttpErrorResponse) => {
-            this.errorMessage = error.message;
           }
         );
   }

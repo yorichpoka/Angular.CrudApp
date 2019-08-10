@@ -14,12 +14,13 @@ export class AppStartService implements IAppStartService {
     private appSettingsService : AppsettingsService) { }
 
   start(): Promise<void> {
+    // Log.
+    console.log('Application start.');
+    // Clear session.
+    this.sessionService.init();
+    // Send promise.
     return new Promise<void>(
       (resolve, reject) => {
-        // Log.
-        console.log('Application start.');
-        // Clear session.
-        this.sessionService.init();
         // Get app settings.
         this.appSettingsService
             .getAppSettings()
@@ -29,7 +30,7 @@ export class AppStartService implements IAppStartService {
                 this.sessionService.setAppSetting(dataAppSetting);
               }
             )
-            .finally(
+            .then(
               () => {
                 // Send.
                 resolve();

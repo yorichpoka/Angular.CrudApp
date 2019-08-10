@@ -2,6 +2,7 @@ import { Component, OnInit, EventEmitter } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { EComponent } from './enums/component.enum';
 import { User } from './models/user.model';
+import { LoadPanel } from './helpers/loadpanel.helper';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,8 @@ import { User } from './models/user.model';
 })
 export class AppComponent implements OnInit {
 
-  userConnected: User = new User();
+  userConnected : User = new User();
+  loadPanel     : LoadPanel = new LoadPanel();
 
   constructor(private titleService: Title) { }
 
@@ -24,6 +26,12 @@ export class AppComponent implements OnInit {
       (<EventEmitter<User>>component.eEUserConnected).subscribe(
         (dataUser : User) => {
           this.userConnected = dataUser;
+        }
+      );
+      // Subscribe to the emitter.
+      (<EventEmitter<LoadPanel>>component.eELoadPanel).subscribe(
+        (dataLoadPanel : LoadPanel) => {
+          this.loadPanel = dataLoadPanel;
         }
       );
     }

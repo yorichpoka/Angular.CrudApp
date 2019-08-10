@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { SessionService } from '../services/session.service';
-import { UsersService } from '../services/users.service';
-import { TokenJWT } from '../models/tokenjwt.model';
+import * as Utils from 'src/app/helpers/utils.helper';
+import { ETypeNotify } from '../enums/typenotify';
 
 @Injectable({
   providedIn: 'root'
@@ -11,14 +11,15 @@ export class AuthGuard implements  CanActivate {
 
   constructor(
     private router: Router,
-    private sessionService : SessionService,
-    private userService : UsersService) { }
+    private sessionService : SessionService) { }
 
   canActivate() : boolean {
-    const canActivate : boolean = this.sessionService.getUser().id !== 0;
+    const canActivate : boolean = this.sessionService.getConnexion().user.id !== 0;
     
-    if(!canActivate)
+    if(!canActivate) {
+      Utils.notification('The user must be connected.', ETypeNotify.Info);
       this.router.navigate(['/auth']);
+    }
 
     return canActivate;
   }

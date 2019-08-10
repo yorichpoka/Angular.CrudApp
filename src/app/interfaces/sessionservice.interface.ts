@@ -1,15 +1,15 @@
-import { User } from 'src/app/models/user.model';
-import { TokenJWT } from 'src/app/models/tokenjwt.model';
+import { Connexion } from '../helpers/connexion.helper';
 import { AppSetting } from '../models/appsetting.model';
+import { User } from '../models/user.model';
+import { TokenJWT } from '../models/tokenjwt.model';
 
 export interface ISessionService {
     
-    getToken()                          : TokenJWT;
-    setToken(tokenJWT : TokenJWT)       : void;
-    getUser()                           : User;
-    setAppSetting(user : AppSetting)    : void;
-    getAppSetting()                     : AppSetting;
-    setUser(user : User)                : void;
-    init()                              : void;
+    getConnexion()                          : Connexion;
+    setConnexion(connexion : Connexion)     : void;
+    init()                                  : void;
+    setAppSetting(appSetting: AppSetting)   : void;
+    setUser(user: User)                     : void;
+    setToken(tokenJwt: TokenJWT)         : void;
 
 }
