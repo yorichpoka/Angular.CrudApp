@@ -18,7 +18,7 @@
                 [showColumnLines]="true" [showRowLines]="false" [showBorders]="true" [cacheEnabled]="false"
                 (onSelectionChanged)="selectionChanged($event)">
                 <!-- Parameters -->
-                <dxo-paging [pageSize]="1"></dxo-paging>
+                <dxo-paging [pageSize]="10"></dxo-paging>
                 <dxo-selection mode="multiple"></dxo-selection>
                 <dxo-filter-row [visible]="true"></dxo-filter-row>
                 <dxo-search-panel [visible]="true" [highlightCaseSensitive]="true"></dxo-search-panel>
@@ -70,37 +70,39 @@
                     </div>
                     <div class="form-group col-12">
                         <label for="idRole">Role :</label>
-                        <select class="form-control form-control-sm" id="idRole" formControlName="idRole" autofocus>
-                            <option  *ngFor="let role of rolesDataSource" value="{{role.id}}">{{ role.title }}</option>
+                        <select class="form-control" id="idRole" formControlName="idRole" autofocus>
+                            <option *ngFor="let role of rolesDataSource" value="{{role.id}}">{{ role.title }}</option>
                             <option value="0">Select</option>
                         </select>
                     </div>
                     <div class="form-group col-12">
                         <label for="name">Name :</label>
-                        <input type="text" class="form-control form-control-sm" id="name" formControlName="name">
+                        <input type="text" class="form-control" id="name" formControlName="name">
                     </div>
                     <div class="form-group col-12">
                         <label for="login">Login :</label>
-                        <input type="text" class="form-control form-control-sm" id="login" formControlName="login">
+                        <input type="text" class="form-control" id="login" formControlName="login">
                     </div>
                     <div class="form-group col-12 col-md-6">
                         <label for="password">Password :</label>
-                        <input type="password" class="form-control form-control-sm" id="password" formControlName="password">
+                        <input type="password" class="form-control" id="password" formControlName="password">
                     </div>
                     <div class="form-group col-12 col-md-6">
                         <label for="confirmPassword">Confirm password :</label>
-                        <input type="password" class="form-control form-control-sm" id="confirmPassword"
+                        <input type="password" class="form-control" id="confirmPassword"
                             formControlName="confirmPassword">
                     </div>
                 </div>
             </form>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-sm btn-secondary" (click)="formModal.modal.hide()">
+            <button type="button" class="btn btn-sm btn-secondary" (click)="formModal.modal.hide()"
+                [disabled]="loadingButton.isVisible">
                 <i class="fa fa-remove"></i> Cancel
             </button>
-            <button type="button" class="btn btn-sm btn-success" type="submit" [disabled]="formModal.group.invalid">
-                <i class="fa fa-check"></i> Save
+            <button type="button" class="btn btn-sm btn-success" type="submit"
+                [disabled]="formModal.group.invalid || loadingButton.isVisible">
+                <span [innerHTML]="loadingButton.getHtmlText()"></span>
             </button>
         </div>
     </ng-template>
