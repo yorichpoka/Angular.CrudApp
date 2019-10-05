@@ -4,8 +4,6 @@ import { Router } from '@angular/router';
 import { User } from '../../models/user.model';
 import { TokenJWT } from '../../models/tokenjwt.model';
 import { SessionService } from 'src/app/services/session.service';
-import { EComponent } from 'src/app/enums/component.enum';
-import { BaseViewComponent } from 'src/app/helpers/base.viewcomponent.helper';
 import { UsersService } from 'src/app/services/users.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import * as Utils from 'src/app/helpers/utils.helper';
@@ -17,7 +15,7 @@ import { EFaIcon } from 'src/app/enums/faicon.enum';
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.css']
 })
-export class AuthComponent extends BaseViewComponent implements OnInit {
+export class AuthComponent implements OnInit {
 
   userSignInForm            : FormGroup;
   loadingButton             : LoadingButton = new LoadingButton('Authentication', EFaIcon.SignIn, 'Loading');
@@ -27,9 +25,7 @@ export class AuthComponent extends BaseViewComponent implements OnInit {
     private formBuilder: FormBuilder,
     private usersService: UsersService,
     private sessionService: SessionService,
-    private router: Router) {
-    super(EComponent.AuthComponent);
-  }
+    private router: Router) { }
 
   ngOnInit() {
     this.initForm();
@@ -37,7 +33,7 @@ export class AuthComponent extends BaseViewComponent implements OnInit {
   }
 
   // When login form is submit.
-  onSignIn() {
+  onSignIn(): void {
     var user: User = new User();
         user.login = this.userSignInForm.get('login').value;
         user.password = this.userSignInForm.get('password').value;
@@ -79,7 +75,7 @@ export class AuthComponent extends BaseViewComponent implements OnInit {
   }
 
   // Init form values.
-  initForm() {
+  initForm(): void {
     // Init form.
     this.userSignInForm = this.formBuilder.group({
       login: [

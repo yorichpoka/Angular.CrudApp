@@ -1,8 +1,9 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { EComponent } from './enums/component.enum';
 import { User } from './models/user.model';
 import { LoadPanel } from './helpers/loadpanel.helper';
+import { AuthComponent } from './views/auth/auth.component';
+import { UsersComponent } from './views/users/users.component';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +21,7 @@ export class AppComponent implements OnInit {
 
   onActivate(component: any): void {
     // #region AuthComponent
-    if (component.name == EComponent.AuthComponent) {
+    if (component instanceof AuthComponent) {
       this.titleService.setTitle('Auth - CrudApp');
       // Subscribe to the emitter.
       (<EventEmitter<User>>component.eEUserConnected).subscribe(
@@ -28,17 +29,11 @@ export class AppComponent implements OnInit {
           this.userConnected = dataUser;
         }
       );
-      // Subscribe to the emitter.
-      (<EventEmitter<LoadPanel>>component.eELoadPanel).subscribe(
-        (dataLoadPanel : LoadPanel) => {
-          this.loadPanel = dataLoadPanel;
-        }
-      );
     }
     // #endregion
 
     // #region UsersComponent
-    else if (component.name == EComponent.UsersComponent) {
+    else if (component instanceof UsersComponent) {
       this.titleService.setTitle('Users - CrudApp');
     }
     // #endregion

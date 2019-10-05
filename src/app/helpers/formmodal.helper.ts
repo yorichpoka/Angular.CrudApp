@@ -21,4 +21,8 @@ export class FormModal {
         this.modal = this.modalService.show(template, this.modalFormConfig);
     }
 
+    hide() : void {
+        this.modal.hide();
+    }
+
 }
