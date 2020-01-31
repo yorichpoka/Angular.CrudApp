@@ -1,0 +1,80 @@
+<div class="card">
+    <div class="card-header">
+        <div class="float-left">
+            <i class="fa fa-list"></i> Restaurants list
+        </div>
+        <button class="btn btn-sm btn-secondary float-right" [disabled]="!selectedItemKeys.length || loadingDeleteButton.isVisible" (click)="deleteRecords()">
+                <i class="fa fa-trash"></i> Delete selection ({{ selectedItemKeys.length }})
+            </button>
+    </div>
+    <div class="card-body">
+        <dx-data-grid id="gridContainer" [dataSource]="restaurantsDataSource" [showColumnLines]="true" [showRowLines]="false" [showBorders]="true" [cacheEnabled]="false" [columnAutoWidth]="true" [allowColumnReordering]="true" [allowColumnResizing]="true" (onSelectionChanged)="onSelectionChanged($event)"
+            (onToolbarPreparing)="onToolbarPreparing($event)" [masterDetail]="{ enabled: true, template: 'gradesTemplate' }">
+            <!-- Parameters -->
+            <dxo-paging [pageSize]="10"></dxo-paging>
+            <dxo-selection mode="multiple"></dxo-selection>
+            <dxo-filter-row [visible]="true"></dxo-filter-row>
+            <dxo-search-panel [visible]="true" [highlightCaseSensitive]="true"></dxo-search-panel>
+            <dxo-header-filter [visible]="true"></dxo-header-filter>
+            <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[3, 5, 10, 100]" [showInfo]="true"></dxo-pager>
+            <dxo-group-panel [visible]="true"></dxo-group-panel>
+            <dxo-editing mode="batch" [useIcons]="true" [refreshMode]="'full'" [startEditAction]="'dblClick'" [allowAdding]="true" [allowUpdating]="true" [allowDeleting]="true"></dxo-editing>
+            <dxo-keyboard-navigation [editOnKeyPress]="true" [enterKeyAction]="'startEdit'" [enterKeyDirection]="'none'"></dxo-keyboard-navigation>
+            <!-- Column -->
+            <dxi-column dataField="name" dataType="string" caption="Name">
+                <dxi-validation-rule type="required"></dxi-validation-rule>
+            </dxi-column>
+            <dxi-column dataField="cuisine" dataType="string" caption="Cuisine">
+                <dxi-validation-rule type="required"></dxi-validation-rule>
+            </dxi-column>
+            <dxi-column dataField="borough" dataType="string" caption="Borough">
+                <dxi-validation-rule type="required"></dxi-validation-rule>
+            </dxi-column>
+            <dxi-column dataField="address.street" dataType="string" caption="Street address">
+                <dxi-validation-rule type="required"></dxi-validation-rule>
+            </dxi-column>
+            <dxi-column dataField="address.building" dataType="string" caption="Building address">
+                <dxi-validation-rule type="required"></dxi-validation-rule>
+            </dxi-column>
+            <dxi-column dataField="address.zipCode" dataType="string" caption="ZipCode address">
+                <dxi-validation-rule type="required"></dxi-validation-rule>
+            </dxi-column>
+            <dxi-column dataField="address.coordinate.type" dataType="string" caption="Type coordinate address" [width]="'auto'">
+                <dxi-validation-rule type="required"></dxi-validation-rule>
+            </dxi-column>
+            <dxi-column dataField="address.coordinate.coordinate.longitude" dataType="number" caption="Longitude address" [width]="'auto'">
+                <dxi-validation-rule type="required"></dxi-validation-rule>
+            </dxi-column>
+            <dxi-column dataField="address.coordinate.coordinate.latitude" dataType="number" caption="Latitude address" [width]="'auto'">
+                <dxi-validation-rule type="required"></dxi-validation-rule>
+            </dxi-column>
+            <dxi-column dataField="grades" dataType="string" caption="Grade" [width]="'auto'" [allowEditing]="false"></dxi-column>
+            <!-- Template -->
+            <div *dxTemplate="let restaurant of 'gradesTemplate'">
+                <dx-data-grid [showColumnLines]="true" [dataSource]="getDataSourceGrade(restaurant.data)" (onRowUpdated)="onRowUpdated($event, restaurant.data.restaurant_Id)" (onRowInserted)="onRowInserted($event, restaurant.data.restaurant_Id)" (onRowRemoved)="onRowRemoved($event, restaurant.data.restaurant_Id)"
+                    [showRowLines]="false" [showBorders]="true" [cacheEnabled]="false" [columnAutoWidth]="true" [allowColumnReordering]="true" [allowColumnResizing]="true">
+                    <!-- Parameters -->
+                    <dxo-paging [pageSize]="10"></dxo-paging>
+                    <dxo-selection mode="single"></dxo-selection>
+                    <dxo-filter-row [visible]="true"></dxo-filter-row>
+                    <dxo-search-panel [visible]="true" [highlightCaseSensitive]="true"></dxo-search-panel>
+                    <dxo-header-filter [visible]="true"></dxo-header-filter>
+                    <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[3, 5, 10, 100]" [showInfo]="true"></dxo-pager>
+                    <dxo-group-panel [visible]="true"></dxo-group-panel>
+                    <dxo-editing mode="batch" [useIcons]="true" [refreshMode]="'full'" [startEditAction]="'dblClick'" [allowAdding]="true" [allowUpdating]="true" [allowDeleting]="true"></dxo-editing>
+                    <dxo-keyboard-navigation [editOnKeyPress]="true" [enterKeyAction]="'startEdit'" [enterKeyDirection]="'none'"></dxo-keyboard-navigation>
+                    <!-- Column -->
+                    <dxi-column dataField="name" dataType="string" caption="Name" [width]="'auto'">
+                        <dxi-validation-rule type="required"></dxi-validation-rule>
+                    </dxi-column>
+                    <dxi-column dataField="score" dataType="number" caption="Score" [width]="'auto'">
+                        <dxi-validation-rule type="required"></dxi-validation-rule>
+                    </dxi-column>
+                    <dxi-column dataField="date" dataType="date" caption="Date" [alignment]="'center'" [width]="'auto'" format="dd/MM/yyyy">
+                        <dxi-validation-rule type="required"></dxi-validation-rule>
+                    </dxi-column>
+                </dx-data-grid>
+            </div>
+        </dx-data-grid>
+    </div>
+</div>

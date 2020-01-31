@@ -1,0 +1,17 @@
+<header class="bg-white pt-2 pb-5">
+    <app-header [userConnected]="userConnected" [menuMongoDbEnabled]="menuMongoDbEnabled" [menuSqLiteEnabled]="menuSqLiteEnabled"></app-header>
+</header>
+
+<main class="bg-white">
+    <div class="container py-5">
+        <router-outlet (activate)="onActivate($event)"></router-outlet>
+    </div>
+</main>
+
+<footer>
+    <app-footer></app-footer>
+</footer>
+
+<!-- #region app-load-panel -->
+<app-load-panel [properties]="loadPanel"></app-load-panel>
+<!-- #endregion -->

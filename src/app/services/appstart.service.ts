@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { IAppStartService } from '../interfaces/appstartservice.interface';
+import { IAppStartService } from '../interfaces/appstart.service.interface';
 import { SessionService } from './session.service';
 import { AppsettingsService } from './appsettings.service';
-import { AppSetting } from '../models/appsetting.model';
+import { AppSettingModel } from '../models/appsetting.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +18,8 @@ export class AppStartService implements IAppStartService {
     console.log('Application start.');
     // Clear session.
     this.sessionService.init();
+    // Log.
+    console.log('Clear session.');
     // Send promise.
     return new Promise<void>(
       (resolve, reject) => {
@@ -25,13 +27,21 @@ export class AppStartService implements IAppStartService {
         this.appSettingsService
             .getAppSettings()
             .then(
-              (dataAppSetting : AppSetting) => {
+              (dataAppSetting : AppSettingModel) => {
                 // Set in session.
                 this.sessionService.setAppSetting(dataAppSetting);
+                // Set success
+                return true;
+              },
+              (reason : any) => {
+                // Set fail
+                return false;
               }
             )
             .then(
-              () => {
+              (stateGetAppSetting : boolean) => {
+                // Log.
+                console.log(`GetAppSettings state: ${stateGetAppSetting}.`);
                 // Send.
                 resolve();
               }

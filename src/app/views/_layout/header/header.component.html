@@ -1,55 +1,96 @@
-<div class="container">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light rounded border shadow" [hidden]="userConnected.id == 0">
+<div class="container pt-2 fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light rounded border shadow pl-2" [hidden]="userConnected.id == 0">
         <a class="navbar-brand" [routerLink]="[ '/auth' ]">
-            <img src="assets/images/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
-            Crud App
+            <img src="assets/images/iroll_home.png" height="30" class="d-inline-block align-top" alt="{{ title }}">
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
-            aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item" routerLinkActive="active">
+                <li class="nav-item" routerLinkActive="active font-weight-bold">
                     <a class="nav-link" [routerLink]="[ '/users' ]">
-                        <fa name="users"></fa> Users
+                        Users
                     </a>
                 </li>
-                <li class="nav-item" routerLinkActive="active">
+                <li class="nav-item" routerLinkActive="active font-weight-bold">
                     <a class="nav-link" [routerLink]="[ '/roles' ]">
-                        <fa name="cog"></fa> Roles
+                        Roles
                     </a>
                 </li>
-                <li class="nav-item" routerLinkActive="active">
+                <li class="nav-item" routerLinkActive="active font-weight-bold">
                     <a class="nav-link" [routerLink]="[ '/groupMenus' ]">
-                        <fa name="cog"></fa> Groups menu
+                        Groups menu
                     </a>
                 </li>
-                <li class="nav-item" routerLinkActive="active">
+                <li class="nav-item" routerLinkActive="active font-weight-bold">
                     <a class="nav-link" [routerLink]="[ '/menus' ]">
-                        <fa name="clone"></fa> Menus
+                        Menus
                     </a>
                 </li>
-                <li class="nav-item" routerLinkActive="active">
+                <li class="nav-item" routerLinkActive="active font-weight-bold">
                     <a class="nav-link" [routerLink]="[ '/authorizations' ]">
-                        <fa name="lock"></fa> Authorizations
+                        Authorizations
                     </a>
+                </li>
+                <li class="nav-item">
+                    <div class="btn-group" dropdown>
+                        <a class="nav-link dropdown-toggle {{ getCssMenuMongoDbEnabled() }}" dropdownToggle href="Javascript:;" role="button">
+                            <i class="fa fa-database"></i> Mongo DB {{ getTitleMenuMongoDbEnabled() }}
+                        </a>
+                        <ul id="menuMongoDB" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="groupMongoDB">
+                            <li role="menuitem">
+                                <a class="dropdown-item" routerLinkActive="active font-weight-bold" [routerLink]="[ '/mongodb/restaurants' ]">
+                                    Restaurants
+                                </a>
+                            </li>
+                            <li role="menuitem">
+                                <a class="dropdown-item" routerLinkActive="active font-weight-bold" [routerLink]="[ '/mongodb/grades' ]">
+                                    Grades
+                                </a>
+                            </li>
+                            <li role="menuitem">
+                                <a class="dropdown-item" routerLinkActive="active font-weight-bold" [routerLink]="[ '/mongodb/coordinates' ]">
+                                    Coordinates
+                                </a>
+                            </li>
+                            <li role="menuitem">
+                                <a class="dropdown-item" routerLinkActive="active font-weight-bold" [routerLink]="[ '/mongodb/address' ]">
+                                    Address
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="btn-group" dropdown>
+                        <a class="nav-link dropdown-toggle {{ getCssMenuSqLiteEnabled() }}" dropdownToggle href="Javascript:;" role="button">
+                            <i class="fa fa-database"></i> SQLite {{ getTitleMenuSqLiteEnabled() }}
+                        </a>
+                        <ul id="menuSqLite" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="groupSqLite">
+                            <li role="menuitem">
+                                <a class="dropdown-item" routerLinkActive="active font-weight-bold" [routerLink]="[ '/sqlite/websites' ]">
+                                    Web sites
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
             </ul>
             <div class="btn-group" dropdown>
-                <button id="button-basic" dropdownToggle type="button" class="btn btn-link dropdown-toggle" aria-controls="dropdown-basic">
-                    <fa name="user"></fa> {{ userConnected.name }} ({{ userConnected.role.title }}) <span class="caret"></span>
+                <button id="groupUserConnected" dropdownToggle type="button" class="btn btn-link dropdown-toggle" aria-controls="menuUserConnected">
+                    <i class="fa fa-user"></i> {{ userConnected.name }} ({{ userConnected.role.title }}) <span class="caret"></span>
                 </button>
-                <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+                <ul id="menuUserConnected" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="groupUserConnected">
                     <li role="menuitem">
                         <a class="dropdown-item" href="Javascript:;" (click)="profil()">
-                            <fa name="info-circle"></fa> Profil
+                            <i class="fa fa-info-circle"></i> Profil
                         </a>
                     </li>
                     <li class="divider dropdown-divider"></li>
                     <li role="menuitem">
                         <a class="dropdown-item" href="Javascript:;" (click)="disconnect()">
-                            <fa name="sign-out"></fa> Sing out
+                            <i class="fa fa-sign-out"></i> Sing out
                         </a>
                     </li>
                 </ul>

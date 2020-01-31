@@ -1,6 +1,7 @@
-export class Authorization {
+export class AuthorizationModel {
 
-    public idRole:          number = 0; 
+    public id:              string;
+    public idRole:          number = 0;
     public idMenu:          number = 0;
     public create:          boolean = false;
     public read:            boolean = false;

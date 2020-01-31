@@ -1,0 +1,39 @@
+<div class="card">
+    <div class="card-header">
+        <div class="float-left">
+            <i class="fa fa-list"></i> Authorizations list
+        </div>
+        <button class="btn btn-sm btn-secondary float-right" [disabled]="!selectedItemKeys.length || loadingDeleteButton.isVisible" (click)="deleteRecords()">
+            <i class="fa fa-trash"></i> Delete selection ({{ selectedItemKeys.length }})
+        </button>
+    </div>
+    <div class="card-body">
+        <dx-data-grid id="gridContainer" [dataSource]="authorizationsDataSource" [showColumnLines]="true" [showRowLines]="false" [showBorders]="true" [cacheEnabled]="false" [columnAutoWidth]="true" [allowColumnReordering]="true" [allowColumnResizing]="true" (onSelectionChanged)="onSelectionChanged($event)"
+            (onToolbarPreparing)="onToolbarPreparing($event)">
+            <!-- Parameters -->
+            <dxo-paging [pageSize]="10"></dxo-paging>
+            <dxo-selection mode="multiple"></dxo-selection>
+            <dxo-filter-row [visible]="true"></dxo-filter-row>
+            <dxo-search-panel [visible]="true" [highlightCaseSensitive]="true"></dxo-search-panel>
+            <dxo-header-filter [visible]="true"></dxo-header-filter>
+            <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[3, 5, 10, 100]" [showInfo]="true"></dxo-pager>
+            <dxo-group-panel [visible]="true"></dxo-group-panel>
+            <dxo-editing mode="batch" [useIcons]="true" [refreshMode]="'full'" [startEditAction]="'dblClick'" [allowAdding]="true" [allowUpdating]="true" [allowDeleting]="true"></dxo-editing>
+            <dxo-keyboard-navigation [editOnKeyPress]="true" [enterKeyAction]="'startEdit'" [enterKeyDirection]="'none'"></dxo-keyboard-navigation>
+            <!-- Column -->
+            <dxi-column dataField="idRole" dataType="string" caption="Role">
+                <dxi-validation-rule type="required"></dxi-validation-rule>
+                <dxo-lookup [dataSource]="rolesDataSource" displayExpr="title" valueExpr="id"></dxo-lookup>
+            </dxi-column>
+            <dxi-column dataField="idMenu" dataType="string" caption="Menu">
+                <dxi-validation-rule type="required"></dxi-validation-rule>
+                <dxo-lookup [dataSource]="menusDataSource" displayExpr="title" valueExpr="id"></dxo-lookup>
+            </dxi-column>
+            <dxi-column dataField="create" dataType="boolean" caption="Create"></dxi-column>
+            <dxi-column dataField="read" dataType="boolean" caption="Read"></dxi-column>
+            <dxi-column dataField="update" dataType="boolean" caption="Update"></dxi-column>
+            <dxi-column dataField="delete" dataType="boolean" caption="Delete"></dxi-column>
+            <dxi-column dataField="creationDate" dataType="date" caption="Creation date" [allowEditing]="false" [alignment]="'center'" [width]="'auto'" format="dd/MM/yyyy HH:mm"></dxi-column>
+        </dx-data-grid>
+    </div>
+</div>

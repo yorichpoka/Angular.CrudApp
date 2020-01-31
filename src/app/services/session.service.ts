@@ -1,27 +1,27 @@
 import { Injectable } from '@angular/core';
-import { ISessionService } from '../interfaces/sessionservice.interface';
+import { ISessionService } from '../interfaces/session.service.interface';
 import { Connexion } from '../helpers/connexion.helper';
-import { AppSetting } from '../models/appsetting.model';
-import { User } from '../models/user.model';
-import { TokenJWT } from '../models/tokenjwt.model';
+import { AppSettingModel } from '../models/appsetting.model';
+import { UserModel } from '../models/user.model';
+import { TokenModel } from '../models/token.model';
 
 @Injectable({
     providedIn: 'root'
 })
 export class SessionService implements ISessionService {
 
-    private keyConnexion: string = 'keyConnexion';
+    private _keyConnexion: string = 'keyConnexion';
 
     constructor() { }
 
-    init(): void {
+    init() : void {
         sessionStorage.clear();
         this.setConnexion(new Connexion());
     }
 
-    getConnexion(): Connexion {
+    getConnexion() : Connexion {
         var connexion: Connexion = JSON.parse(
-            sessionStorage.getItem(this.keyConnexion)
+            sessionStorage.getItem(this._keyConnexion)
         );
 
         if(connexion == null)
@@ -30,28 +30,50 @@ export class SessionService implements ISessionService {
         return connexion;
     }
 
-    setConnexion(connexion: Connexion): void {
+    setConnexion(connexion: Connexion) : void {
         sessionStorage.setItem(
-            this.keyConnexion,
+            this._keyConnexion,
             JSON.stringify(connexion)
         );
     }
 
-    setAppSetting(appSetting: AppSetting) : void {
+    getAppSetting() : AppSettingModel {
+        return this.getConnexion().appSetting;
+    }
+
+    setAppSetting(appSetting: AppSettingModel) : void {
         var connexion : Connexion = this.getConnexion();
         connexion.appSetting = appSetting;
         this.setConnexion(connexion);
     }
 
-    setUser(user: User) : void {
+    getUser() : UserModel {
+        return this.getConnexion().user;
+    }
+
+    setUser(user: UserModel) : void {
         var connexion : Connexion = this.getConnexion();
         connexion.user = user;
         this.setConnexion(connexion);
     }
 
-    setToken(tokenJwt: TokenJWT) : void {
+    getToken() : TokenModel {
+        return this.getConnexion().token;
+    }
+
+    setToken(tokenJwt: TokenModel) : void {
         var connexion : Connexion = this.getConnexion();
-        connexion.tokenJwt = tokenJwt;
+        connexion.token = tokenJwt;
+        this.setConnexion(connexion);
+    }
+
+    getIdConnectionHub() : string {
+        return this.getConnexion().idConnectionHub;
+    }
+
+    setIdConnectionHub(idConnectionHub: string) : void {
+        var connexion : Connexion = this.getConnexion();
+        connexion.idConnectionHub = idConnectionHub;
         this.setConnexion(connexion);
     }
 

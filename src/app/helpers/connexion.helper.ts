@@ -1,17 +1,23 @@
-import { TokenJWT } from '../models/tokenjwt.model';
-import { User } from '../models/user.model';
-import { AppSetting } from '../models/appsetting.model';
+import { TokenModel } from '../models/token.model';
+import { UserModel } from '../models/user.model';
+import { AppSettingModel } from '../models/appsetting.model';
 
 export class Connexion {
 
-    tokenJwt    : TokenJWT;
-    user        : User;
-    appSetting  : AppSetting;
+    token           : TokenModel;
+    user            : UserModel;
+    appSetting      : AppSettingModel;
+    idConnectionHub : string;
 
-    constructor(tokenJwt : TokenJWT = new TokenJWT(), user : User = new User(), appSetting: AppSetting = new AppSetting()) {
-        this.tokenJwt = tokenJwt;
+    constructor(
+        token : TokenModel = new TokenModel(), 
+        user : UserModel = new UserModel(), 
+        appSetting: AppSettingModel = new AppSettingModel(),
+        idConnectionHub : string = null) {
+        this.token = token;
         this.user = user;
         this.appSetting = appSetting;
+        this.idConnectionHub = idConnectionHub;
     }
 
 }

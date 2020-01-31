@@ -1,13 +1,13 @@
-import { Role } from './role.model';
+import { RoleModel } from './role.model';
 
-export class User {
+export class UserModel {
 
     public id       : number = 0;
     public idRole   : number = 0;
-    public login    : string = '';
-    public password : string = '';
-    public name     : string = '';
-    public role     : Role = new Role();
+    public login    : string;
+    public password : string;
+    public name     : string;
+    public role     : RoleModel = new RoleModel();
 
     constructor() { }
 

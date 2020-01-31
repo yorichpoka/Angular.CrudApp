@@ -1,7 +1,18 @@
-export class AppSetting {
+export class AppSettingModel {
 
-    public version  : string = '';
-    public apiUrl   : string = '';
+    public title    : string;
+    public version  : string;
+    public apiUrl   : string;
+    public config   : ConfigModel;
+
+    constructor() {}
+
+}
+
+class ConfigModel {
+
+    public notifyDuration : number;
+    public messageBoxDuration : number;
 
     constructor() {}
 

@@ -22,7 +22,7 @@ export function confirmdAction(): Promise<boolean> {
 }
 
 export function notification(message: string, type: ETypeNotify = ETypeNotify.Error, duration: number = 4000): void {
-    notify({ message: message, width: 300 }, type, duration);
+    notify({ message: message, width: 400 }, type, duration);
 }
 
 export function validatorCheckPasswords(formGroup: FormGroup): any {

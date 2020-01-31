@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { SessionService } from './session.service';
-import { TokenJWT } from '../models/tokenjwt.model';
 import { Connexion } from '../helpers/connexion.helper';
 
 @Injectable({
@@ -21,7 +20,7 @@ export class HttpInterceptorService implements HttpInterceptor {
                               .set('Cache-Control', 'no-cache')
                               .set('Pragma',        'no-cache')
                               .set('Expires',       'Sat, 01 Jan 2000 00:00:00 GMT')
-                              .set('Authorization', 'Bearer ' + connexion.tokenJwt.value)
+                              .set('Authorization', 'Bearer ' + connexion.token.value)
     });
     // Continue event.
     return next.handle(request);
